@@ -54,7 +54,7 @@
         </record>
 
         <!--menu item of library and have sub menuitem-->
-        <menuitem id="menu_library_library" name="Library" parent="menu_library" sequence="0"/>
-        <menuitem id="sub_menu_library_library" parent="menu_library_library" action="action_library_library_list"/>
+        <menuitem id="menu_library_library" name="Library" sequence="0" parent="menu_library"/>
+        <menuitem id="sub_menu_library_library" name="Library" parent="menu_library_library" action="action_library_library_list" />
     </data>
 </odoo>
