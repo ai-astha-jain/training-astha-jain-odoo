@@ -12,4 +12,4 @@ class Library(models.Model):
     location = fields.Char(string='Location')
     capacity = fields.Integer(string='Capacity')
     notes = fields.Text(string='Notes')
-    book_ids = fields.One2many('library.book', string='Book Ids', inverse_name='library_id')
+    book_ids = fields.One2many(comodel_name='library.book', string='Book Ids', inverse_name='library_id')

@@ -8,7 +8,7 @@
     'sequence': 0,
     'category': 'Management/Management',
     'website': 'https://www.aktivsoftware.com',
-    'depends': ['base', 'web'],
+    'depends': ['product','base','sale'],
     'data': [
         'security/ir.model.access.csv',
         'views/library_book_view.xml',
@@ -16,6 +16,7 @@
         'views/library_book_tag.xml',
         'views/library_book_category.xml',
         'views/library_member_view.xml',
+        'views/product_view.xml',
     ],
     'installable': True,
     'application': True,
