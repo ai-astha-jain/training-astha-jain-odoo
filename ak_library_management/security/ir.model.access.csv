@@ -1,6 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_library_book,access_library_book,model_library_book,,1,1,1,1
-access_library_members,access_library_members,model_library_members,,1,1,1,1
-access_library_book_tags,access_library_book_tags,model_library_book_tags,,1,1,1,1
-access_library_book_category,access_library_book_category,model_library_book_category,,1,1,1,1
-access_library_library,access_library_library,model_library_library,,1,1,1,1
