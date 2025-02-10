@@ -4,7 +4,7 @@
 
         <!-- base structure of product.template, common with product.product -->
         <record id="product_common_form_view_library_book" model="ir.ui.view">
-            <field name="name">product.template.common.form.inherit.library.book</field>
+            <field name="name">product.template.inherit.library.book</field>
             <field name="model">product.template</field>
             <field name="inherit_id" ref="product.product_template_form_view"/>
             <field name="arch" type="xml">
@@ -29,12 +29,12 @@
                         <group>
                             <group>
                                 <field name="is_library_book" />
-                                <field name="author" required="sale_ok == 1"/>
-                                <field name="publisher" required="sale_ok == 1"/>
-                                <field name="edition" required="sale_ok == 1"/>
+                                <field name="author" required="sale_ok == True"/>
+                                <field name="publisher" required="sale_ok == True"/>
+                                <field name="edition" required="sale_ok == True"/>
                             </group>
                             <group>
-                                <field name="publish_date" required="sale_ok == 1"/>
+                                <field name="publish_date" required="sale_ok == True"/>
                                 <field name="pages"/>
                                 <field name="available"/>
                                 <field name="status"/>
@@ -60,20 +60,6 @@
                     <field name="pages"/>
                     <field name="available"/>
                 </xpath>
-            </field>
-        </record>
-
-        <record id="product_template_only_form_view_inherit_library_book" model="ir.ui.view">
-            <field name="name">product.template.only.form.view.inherit.library.book</field>
-            <field name="model">product.template</field>
-            <field name="inherit_id" ref="product.product_template_only_form_view"/>
-            <field name="arch" type="xml">
-                <xpath expr="//field[@name='valid_product_template_attribute_line_ids']" position="after">
-                    <field name="barcode" position="move"/>
-                    <field name="status" position="after"/>
-                </xpath>
-
-
             </field>
         </record>
 

@@ -13,7 +13,9 @@ class LibraryBook(models.Model):
     ISBN = fields.Char(string='ISBN')
     publication_date = fields.Date(string='Date of Publication')
     category_id = fields.Many2one(comodel_name='library.book.category' ,string='Book Category')
-    tag_ids = fields.Many2many(comodel_name='library.book.tags',string='Tags', related='category_id.tag_ids')
+    tag_ids = fields.Many2many(comodel_name='library.book.tags',
+                               string='Tags',
+                               related='category_id.tag_ids')
     state = fields.Selection(
         string='Book Availability',
         selection=[('available', 'borrowed'),('borrowed','available')])

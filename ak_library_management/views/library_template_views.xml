@@ -11,7 +11,7 @@
                     <field name="location"/>
                     <field name="capacity"/>
                     <field name="notes"/>
-                    <field name="book_id"/>
+                    <field name="book_ids"/>
                 </list>
             </field>
         </record>
@@ -37,13 +37,12 @@
                             <group>
                                 <field name="capacity"/>
                                 <field name="notes"/>
-                                <field name="count"/>
                             </group>
                         </group>
 
                         <notebook>
                             <page string="Books">
-                            	<field name="book_id" options="{'create': false}"/>
+                            	<field name="book_ids" options="{'create': false}"/>
                             </page>
                         </notebook>
 

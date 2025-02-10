@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
 
 from odoo import models, fields
-from odoo.addons.base.models.ir_actions_report import available
-from odoo.http import borrow_request
+
 
 
 class ProductTemplate(models.Model):
-    """Here, inherit the product.template model to extend the ProductTemplate by library books information"""
+    """Here, inherit the product.template model to
+    extend the ProductTemplate by library books
+    information"""
     _inherit = 'product.template'
 
     is_library_book = fields.Boolean(string='Is Library Book' )
@@ -17,12 +18,15 @@ class ProductTemplate(models.Model):
     pages = fields.Integer(string='Pages')
     available = fields.Boolean(string='Available')
     barcode = fields.Char(string='ISBN')
-    status = fields.Selection([('available','Available'),('borrowed','Borrowed'),('reserved','Reserved')], string='Status')
+    status = fields.Selection([('available','Available'),
+                                        ('borrowed','Borrowed'),
+                                        ('reserved','Reserved')],
+                                        string='Status')
 
+    """function for button: is available"""
     def mark_as_available(self):
         self.status = 'available'
-        return self.status
 
+    """function for button to borrow a book"""
     def mark_as_borrowed(self):
         self.status = 'borrowed'
-        return self.status
