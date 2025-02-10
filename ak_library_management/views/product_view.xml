@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- base structure of product.template, common with product.product -->
+        <record id="product_common_form_view_library_book" model="ir.ui.view">
+            <field name="name">product.template.common.form.inherit.library.book</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_form_view"/>
+            <field name="arch" type="xml">
+
+                <header>
+                    <xpath expr="//button[@name=''action_open_label_layout]" position="after">
+                        <button type="object" name="mark_as_available"
+                                string="Marked as Available" invisible="status != 'borrowed'"/>
+                        <button type="object" name="mark_as_borrowed"
+                                string="Marked as Borrowed" invisible="status != 'available'"  />
+                    </xpath>
+                </header>
+                <xpath expr="//header" position="inside">
+                     <field name="status" widget="statusbar" statusbar_visible="available,borrowed,reserved"/>
+                </xpath>
+
+                <xpath expr="//field[@name='standard_price']" position="attributes">
+                    <attribute name="readonly">sale_ok == True</attribute>
+                </xpath>
+                <xpath expr="//page[@name='inventory']" position="after">
+                    <page name="book_details" string="Book Details">
+                        <group>
+                            <group>
+                                <field name="is_library_book" />
+                                <field name="author" required="sale_ok == 1"/>
+                                <field name="publisher" required="sale_ok == 1"/>
+                                <field name="edition" required="sale_ok == 1"/>
+                            </group>
+                            <group>
+                                <field name="publish_date" required="sale_ok == 1"/>
+                                <field name="pages"/>
+                                <field name="available"/>
+                                <field name="status"/>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+        <!--list view of product template inherit library book-->
+        <record id="product_common_list_view_inherit_library_book" model="ir.ui.view">
+            <field name="name">product.common.list.view.inherit.library.book</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_tree_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='sale_ok']" position="before">
+                    <field name="is_library_book"/>
+                    <field name="author"/>
+                    <field name="publisher"/>
+                    <field name="edition"/>
+                    <field name="publish_date"/>
+                    <field name="pages"/>
+                    <field name="available"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="product_template_only_form_view_inherit_library_book" model="ir.ui.view">
+            <field name="name">product.template.only.form.view.inherit.library.book</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_only_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='valid_product_template_attribute_line_ids']" position="after">
+                    <field name="barcode" position="move"/>
+                    <field name="status" position="after"/>
+                </xpath>
+
+
+            </field>
+        </record>
+
+        <!--menuitem for product-->
+        <menuitem id="menu_product_template_inherit_library_book"
+                  name="Product"
+                  parent="menu_library"/>
+        <menuitem id="sub_menu_product_template_inherit_library_book"
+                  name="Product"
+                  parent="menu_product_template_inherit_library_book"
+                  action="sale.product_template_action"/>
+    </data>
+</odoo>
