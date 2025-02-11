@@ -25,7 +25,7 @@
         'views/library_member_views.xml',
         'views/product_views.xml',
         'views/sale_menus.xml',
-        # 'views/product_view_inherit_barcode_move.xml',
+        'views/product_view_inherit_barcode_move.xml',
 
     ],
     'installable': True,
