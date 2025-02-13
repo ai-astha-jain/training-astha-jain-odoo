@@ -12,17 +12,17 @@ class Library(models.Model):
     location = fields.Char(string='Location')
     capacity = fields.Integer(string='Capacity')
     notes = fields.Text(string='Notes')
-    book_ids = fields.Many2many(comodel_name='product.template',
+    book_id = fields.Many2many(comodel_name='product.template',
                                 string='Book Ids',
-                                domain="[('is_library_book','=',True)]")
+                                domain="[('is_library_book','=',1)]")
 
-    count = fields.Integer(string='Count Borrowed Books', compute="_count_borrowed_book")
+    count = fields.Integer(string='Count Borrowed Books', compute="count_borrowed_book")
 
     """function to count borrowed books"""
-    @api.depends('book_ids')
-    def _count_borrowed_book(self):
+    @api.depends('book_id')
+    def count_borrowed_book(self):
         for rec in self:
-            borrowed_books = rec.filtered(lambda reg: reg.book_ids.status == 'borrowed')
+            borrowed_books = rec.filtered(lambda reg: reg.book_id.status == 'borrowed')
             self.count = len(borrowed_books)
 
     """function of smart button name borrowed"""
@@ -32,5 +32,5 @@ class Library(models.Model):
             'name': 'Borrowed Books List',
             'res_model': 'product.template',
             'view_mode': 'list',
-            'domain': [('status', '=', 'borrowed'), ('id', 'in', self.book_ids.ids)],
+            'domain': [('status', '=', 'borrowed'), ('id', 'in', self.book_id.ids)],
         }

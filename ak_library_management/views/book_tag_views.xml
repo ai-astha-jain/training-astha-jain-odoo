@@ -20,7 +20,7 @@
                 <form>
                     <sheet>
                         <group>
-                            <field name="name"/>
+                            <field name="name"></field>
                         </group>
                     </sheet>
                 </form>

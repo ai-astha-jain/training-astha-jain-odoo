@@ -7,7 +7,7 @@
             <field name="inherit_id" ref="ak_library_management.product_common_form_view_library_book"/>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='pages']" position="after">
-                    <field name="barcode" position="move" required="sale_ok == 1"/>
+                    <field name="barcode" position="move" required="sale_ok"/>
                 </xpath>
             </field>
         </record>

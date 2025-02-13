@@ -19,7 +19,7 @@
                 </xpath>
 
                 <xpath expr="//field[@name='standard_price']" position="attributes">
-                    <attribute name="readonly">sale_ok</attribute>
+                    <attribute name="readonly">sale_ok == True</attribute>
                 </xpath>
                 <xpath expr="//page[@name='inventory']" position="after">
                     <page name="book_details" string="Book Details">

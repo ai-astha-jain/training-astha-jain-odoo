@@ -5,13 +5,7 @@
     'version': '18.0.1.0.0',
     'author':'Aastha Jain',
     'summary': 'A library management module is a software system designed to '
-               'automate and streamline all aspects of a library'
-               ' operations, including book cataloging, member management, '
-               'book issuing and returning, overdue fine calculations, '
-               'and generating reports, allowing librarians to '
-               'efficiently track and manage library resources with '
-               'accurate data access, minimizing manual record-keeping and '
-               'improving overall user experience',
+               'automate and streamline all aspects of a library',
     'sequence': 0,
     'category': 'Management/Management',
     'website': 'https://www.aktivsoftware.com',

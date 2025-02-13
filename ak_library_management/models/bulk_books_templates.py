@@ -7,40 +7,63 @@ class UploadBulkBooks(models.TransientModel):
     _name = "bulk.books"
     _description = "Upload Bulk Books"
 
-    book_name = fields.Text(string="Book Name")
+    book_name = fields.Text(string="Book Name", required=True, default="")
     author_id = fields.Many2one('res.partner', string="Author", required=True)
     price = fields.Integer(string='Price')
     capacity = fields.Integer(string='Capacity')
+    product_count = fields.Integer(string="Count", compute="_count_product_books")
+    state= fields.Boolean(string="state")
 
-    # @api.model_create_multi
-    # def create(self, vals_list):
-    #     # Optimisation: saving a res.config.settings even without changing any
-    #     # values will trigger the write of all related values. This in turn may
-    #     # trigger chain of further recomputation. To avoid it, delete values
-    #     # that were not changed.
-    #     for vals in vals_list:
-    #         for field in self._fields.values():
-    #             if not (field.name in vals and field.related and not field.readonly):
-    #                 continue
-    #             # we write on a related field like
-    #             # qr_code = fields.Boolean(related='company_id.qr_code', readonly=False)
-    #             fname0, *fnames = field.related.split(".")
-    #             if fname0 not in vals:
-    #                 continue
-    #
-    #             # determine the current value
-    #             field0 = self._fields[fname0]
-    #             old_value = field0.convert_to_record(
-    #                 field0.convert_to_cache(vals[fname0], self), self)
-    #             for fname in fnames:
-    #                 old_value = next(iter(old_value), old_value)[fname]
-    #
-    #             # determine the new value
-    #             new_value = field.convert_to_record(
-    #                 field.convert_to_cache(vals[field.name], self), self)
-    #
-    #             # drop if the value is the same
-    #             if old_value == new_value:
-    #                 vals.pop(field.name)
-    #
-    #     return super().create(vals_list)
+    def create_product(self):
+        books = self.book_name.split(",")
+        vals_list = []
+        for book in books:
+            exist_book = self.env['product.template'].search(domain=[('name','=',book)])
+            if exist_book:
+                continue
+            vals_list.append({'name': book, 'author':self.author_id.name})
+        self.env['product.template'].create(vals_list)
+        self.state = True
+
+    def revert_changes(self):
+        books = self.book_name.split(",")
+        for book in books:
+            exist_book = self.env['product.template'].search(domain=[('name', '=', book)])
+            exist_book.unlink()
+        self.state = False
+
+    @api.depends('state','product_count')
+    def _count_product_books(self):
+        books = self.book_name.split(",")
+        if self.state:
+            self.product_count = len(books)
+        else:
+            self.product_count = 0
+
+    def action_product_count(self):
+        if self.product_count == 1:
+            print("\n\n\n\n\nhello from if start\n\n\n")
+            search_product = self.env['product.template'].search(domain=[('name','=',self.book_name)])
+            print(search_product)
+            print("\n\n\n\n\nhello from if start search product\n\n\n")
+            return {
+                'type': 'ir.actions.act_window',
+                'name': 'Product Count',
+                'res_model': 'product.template',
+                'view_mode': 'form',
+                'res_id': search_product.id,
+            }
+            print("\n\n\nHello from if end\n\n\n")
+        else:
+            print("\n\nHello from else start\n\n\n\n")
+            books = self.book_name.split(",")
+            print(books)
+            print("\n\nBook split\n\n\n\n")
+            return {
+                'type': 'ir.actions.act_window',
+                'name': 'Product Count',
+                'res_model': 'product.template',
+                'view_mode': 'list,form',
+                'domain': [('name','in',books)],
+            }
+            print("\n\n\n\nHello from End\n\n\n")
