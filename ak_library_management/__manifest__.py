@@ -21,6 +21,12 @@
         'views/sale_menus.xml',
         'views/product_view_inherit_barcode_move_views.xml',
         'views/bulk_books_views.xml',
+        'data/sequence.xml',
+        'views/res_users.xml',
+        'views/sale_order_views.xml',
+        'views/res_partner_views.xml',
+        'views/borrow_transaction_views.xml',
+        'views/sale_order_wizard.xml',
 
     ],
     'installable': True,

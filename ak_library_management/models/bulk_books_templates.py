@@ -42,10 +42,8 @@ class UploadBulkBooks(models.TransientModel):
 
     def action_product_count(self):
         if self.product_count == 1:
-            print("\n\n\n\n\nhello from if start\n\n\n")
             search_product = self.env['product.template'].search(domain=[('name','=',self.book_name)])
             print(search_product)
-            print("\n\n\n\n\nhello from if start search product\n\n\n")
             return {
                 'type': 'ir.actions.act_window',
                 'name': 'Product Count',
@@ -53,12 +51,9 @@ class UploadBulkBooks(models.TransientModel):
                 'view_mode': 'form',
                 'res_id': search_product.id,
             }
-            print("\n\n\nHello from if end\n\n\n")
         else:
-            print("\n\nHello from else start\n\n\n\n")
             books = self.book_name.split(",")
             print(books)
-            print("\n\nBook split\n\n\n\n")
             return {
                 'type': 'ir.actions.act_window',
                 'name': 'Product Count',
@@ -66,4 +61,3 @@ class UploadBulkBooks(models.TransientModel):
                 'view_mode': 'list,form',
                 'domain': [('name','in',books)],
             }
-            print("\n\n\n\nHello from End\n\n\n")

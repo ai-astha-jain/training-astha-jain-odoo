@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models,fields
+from odoo import models,fields,api,_
+from odoo.exceptions import ValidationError
+
 
 
 class LibraryBook(models.Model):
@@ -18,6 +20,14 @@ class LibraryBook(models.Model):
                                related='category_id.tag_ids')
     state = fields.Selection(
         string='Book Availability',
-        selection=[('available', 'borrowed'),('borrowed','available')])
+        selection=[('available', 'Available'),
+                   ('borrowed','Borrowed'),
+                   ('unavailable','Unavailable')])
     description = fields.Text(string='Book Summary')
     library_id = fields.Many2one(comodel_name='library.library', string='Library Id')
+
+    @api.constrains('name', 'state')
+    def _check_borrow_book(self):
+        for record in self:
+            if record.name and record.state == 'unavailable':
+                raise ValidationError(_("This book can not be borrowed as it is unavailable."))

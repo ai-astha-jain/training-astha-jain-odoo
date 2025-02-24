@@ -13,7 +13,7 @@
                                 name="create_product"
                                 string="Create Product"/>
                         <button type="object" name="revert_changes"
-                                string="Revert Changes" invisible="state != True"/>
+                                string="Revert Changes" invisible="not state"/>
                     </header>
                     <sheet>
                         <div name="button_box">
@@ -22,7 +22,7 @@
                                     type="object"
                                     icon="fa-usd"
                                     string="Product Count"
-                                    invisible="state != True">
+                                    invisible="not state">
                                 <field string="Product Count"
                                        name="product_count"
                                        widget="statinfo"/>

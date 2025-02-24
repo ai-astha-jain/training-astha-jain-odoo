@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models, fields
+from odoo import fields, models
 
 
 class LibraryBookCategory(models.Model):
@@ -9,4 +9,4 @@ class LibraryBookCategory(models.Model):
     _description = 'Library Book Category'
 
     name = fields.Char(string='Book Category', required=True)
-    tag_ids = fields.Many2many(comodel_name='library.book.tags',  string='Book Tags')
+    tag_ids = fields.Many2many(comodel_name='library.book.tags', string='Book Tags')

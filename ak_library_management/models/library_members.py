@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models,fields
+from odoo import models,fields,api,_
 
 
 class LibraryMembers(models.Model):
@@ -12,3 +12,11 @@ class LibraryMembers(models.Model):
     email = fields.Char(string='Email ID')
     phone = fields.Char(string='Contact Number')
     membership_date = fields.Date(string='Membership Start Date')
+    member_id = fields.Char(string='Member ID')
+
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+            if not vals.get('member_id') or vals['member_id'] == _('New'):
+                vals['member_id'] = self.env['ir.sequence'].next_by_code('library.membership') or _('New')
+        return super().create(vals_list)
