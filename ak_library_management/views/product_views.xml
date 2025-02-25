@@ -32,6 +32,8 @@
                                 <field name="author" required="sale_ok"/>
                                 <field name="publisher" required="sale_ok"/>
                                 <field name="edition" required="sale_ok"/>
+                                <field name="borrow_start_date"/>
+                                <field name="borrow_end_date"/>
                             </group>
                             <group>
                                 <field name="publish_date" required="sale_ok"/>

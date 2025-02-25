@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models, fields, api
+from odoo import models, fields, api,_
 
 
 class UploadBulkBooks(models.TransientModel):
+    """transient model for uploading multiple books at once."""
     _name = "bulk.books"
     _description = "Upload Bulk Books"
 
@@ -15,6 +16,7 @@ class UploadBulkBooks(models.TransientModel):
     state= fields.Boolean(string="state")
 
     def create_product(self):
+        """creating a new product(books) and method for create button"""
         books = self.book_name.split(",")
         vals_list = []
         for book in books:
@@ -22,18 +24,28 @@ class UploadBulkBooks(models.TransientModel):
             if exist_book:
                 continue
             vals_list.append({'name': book, 'author':self.author_id.name})
+            self.env['bus.bus']._sendone(self.env.user.partner_id,
+                'simple_notification', {
+                'type': 'success',
+                'sticky': True,
+                'message': _(f"{book} have been created."),
+            })
         self.env['product.template'].create(vals_list)
+
         self.state = True
 
     def revert_changes(self):
+        """to unlink all the products(books)"""
         books = self.book_name.split(",")
         for book in books:
-            exist_book = self.env['product.template'].search(domain=[('name', '=', book)])
+            exist_book = (self.env['product.template']
+                          .search(domain=[('name', '=', book)]))
             exist_book.unlink()
         self.state = False
 
     @api.depends('state','product_count')
     def _count_product_books(self):
+        """method to count borrowed books"""
         books = self.book_name.split(",")
         if self.state:
             self.product_count = len(books)
@@ -41,8 +53,10 @@ class UploadBulkBooks(models.TransientModel):
             self.product_count = 0
 
     def action_product_count(self):
+        """method for smart button."""
         if self.product_count == 1:
-            search_product = self.env['product.template'].search(domain=[('name','=',self.book_name)])
+            search_product = (self.env['product.template']
+                              .search(domain=[('name','=',self.book_name)]))
             print(search_product)
             return {
                 'type': 'ir.actions.act_window',

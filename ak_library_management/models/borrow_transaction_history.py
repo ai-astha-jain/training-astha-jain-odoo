@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 
+from datetime import datetime
 from odoo import models,fields,api
 from odoo.exceptions import ValidationError
-from datetime import datetime
 
 
 class BorrowTransaction(models.Model):
-
+    """this model is based on the history of the borrowed books."""
     _name = "borrow.transaction.history"
     _description = "Borrow Transaction History"
 
@@ -18,11 +18,14 @@ class BorrowTransaction(models.Model):
 
     @api.constrains('borrow_start_date','borrow_end_date')
     def _check_date(self):
+        """give validation on end date that should be
+        greater than start date."""
         for record in self:
             if record.borrow_start_date > record.borrow_end_date:
                 raise ValidationError("End date should be greater tha start date.")
 
     def confirm(self):
+        """method for button returning the action."""
         return {
             'type': 'ir.actions.act_window',
             'name': 'Borrow Book',

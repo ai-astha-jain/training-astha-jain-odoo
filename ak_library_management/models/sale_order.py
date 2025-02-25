@@ -21,7 +21,8 @@ class SaleOrder(models.Model):
                  self.need_confirm = True
                  low_stock_product.append(record.product_template_id.name)
         if low_stock_product:
-            message = (f"Approval needed! The following books have low stock: {list(low_stock_product)} ")
+            message = (f"Approval needed! The following books have low stock: "
+                       f"{list(low_stock_product)} ")
             return {
                 'type': 'ir.actions.act_window',
                 'name': 'Message',
