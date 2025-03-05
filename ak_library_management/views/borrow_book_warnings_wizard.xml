@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="borrow_book_warnings_wizard_form" model="ir.ui.view">
+            <field name="name">borrow.book.warnings.wizard.form</field>
+            <field name="model">borrow.book.warnings.wizard</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="message" readonly="True"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>
