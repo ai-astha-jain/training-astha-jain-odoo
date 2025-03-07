@@ -6,10 +6,6 @@
             <field name="model">sale.order</field>
             <field name="inherit_id" ref="sale.view_order_form"/>
             <field name="arch" type="xml">
-<!--                <field name="payment_term_id" position="after">-->
-<!--                    <field name="is_approve"/>-->
-<!--                    <field name="need_confirm"/>-->
-<!--                </field>-->
                 <xpath expr="//button[@name='action_confirm'][2]" position="attributes">
                     <attribute name="invisible">state != 'draft' or need_confirm</attribute>
                 </xpath>
@@ -18,7 +14,7 @@
                 </xpath>
                 <xpath expr="//header" position="inside">
                     <button name="action_need_approve" string="Approve" type="object" invisible="not need_confirm"/>
-                    <button name="action_need_reject" string="Reject" type="object" invisible="not need_confirm"/>
+                    <button name="action_need_reject" string="Reject" type="object" invisible="state not in ['draft', 'sent', 'sale'] or not id or locked or not need_confirm"/>
                 </xpath>
             </field>
         </record>

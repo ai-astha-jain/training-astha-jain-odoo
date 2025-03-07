@@ -8,13 +8,17 @@ class SaleOrder(models.Model):
     add more functionality."""
     _inherit = 'sale.order'
 
-    need_confirm = fields.Boolean()
-    is_approve = fields.Boolean()
+    need_confirm = fields.Boolean(string='need_confirm')
+    is_approve = fields.Boolean(string='is_approve')
 
     def action_confirm(self):
-        """Checks if on-hand quantity is less than 5. If on-hand
-        quantity is less than 5 approval message pop-up else follow
-        the odoo base flow."""
+        """
+        Override: Open a wizard.
+        if product on-hand quantity is less than 5.
+        open wizard: product on-hand quantity is less than 5
+        else follow the odoo base flow.
+        return: True
+        """
         if not self.is_approve:
             low_stock_product = []
             for record in self.order_line:
@@ -26,22 +30,28 @@ class SaleOrder(models.Model):
                            f"{list(low_stock_product)} ")
                 return {
                     'type': 'ir.actions.act_window',
-                    'name': 'Message',
-                    'res_model': 'sale.order.wizard',
+                    'name': 'Warning',
+                    'res_model': 'check.low.stock.wizard',
                     'view_mode': 'form',
                     'target': 'new',
-                    'context':{'default_message' : message}
+                    'context': {'default_message': message}
                 }
         return super().action_confirm()
 
     def action_need_approve(self):
-        """method for approve button."""
+        """
+        Define: asking for approval
+        if approve button gets clicked confirm button reappear.
+        odoo base will be followed.
+        return: True
+        """
         if self.env.user.is_manager:
             self.is_approve = True
             self.need_confirm = False
 
     def action_need_reject(self):
-        """Works as a cancel button."""
+        """ Cancel SO after showing the cancel wizard when needed."""
         if self.env.user.is_manager:
             self.is_approve = True
+            self.need_confirm = False
         self.action_cancel()

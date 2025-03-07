@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
-from datetime import date,timedelta
-from odoo import models, fields, api,_
+from datetime import date, timedelta
+from odoo import models, fields, api, _
 from odoo.exceptions import ValidationError
 
 
@@ -11,7 +11,7 @@ class ProductTemplate(models.Model):
     information"""
     _inherit = 'product.template'
 
-    is_library_book = fields.Boolean(string='Is Library Book' )
+    is_library_book = fields.Boolean(string='Is Library Book')
     author = fields.Char(string='Author')
     publisher = fields.Char(string='Publisher')
     edition = fields.Char(string='Edition')
@@ -19,15 +19,15 @@ class ProductTemplate(models.Model):
     pages = fields.Integer(string='Pages')
     available = fields.Boolean(string='Available')
     barcode = fields.Char(string='ISBN')
-    status = fields.Selection([('available','Available'),
-                               ('borrowed','Borrowed'),
-                               ('reserved','Reserved'),
-                               ('unavailable','Unavailable')],
-                              string='Status',tracking=True)
+    status = fields.Selection([('available', 'Available'),
+                               ('borrowed', 'Borrowed'),
+                               ('reserved', 'Reserved'),
+                               ('unavailable', 'Unavailable')],
+                              string='Status', tracking=True)
     reference = fields.Char(string='Reference', default=lambda s: s.env._('New'), copy=False)
 
     def mark_as_available(self):
-        """function for button: is available"""
+        """function for button: it will change the status to available"""
         self.status = 'available'
 
     def mark_as_borrowed(self):
@@ -35,11 +35,20 @@ class ProductTemplate(models.Model):
         self.status = 'borrowed'
         activity_message = _("The book due date in 10 days")
         self.activity_schedule(
-            date_deadline= date.today() + timedelta(days=10),
+            date_deadline=date.today() + timedelta(days=10),
             user_id=self.env.user.id,
             note=activity_message,
-            summary= "due in 10 days"
+            summary="due in 10 days"
         )
+
+    @api.constrains('status')
+    def log_message(self):
+        """function to log the note in the chatter to update the partner
+        status of the product."""
+        if self.status == 'borrowed':
+            self.message_post(body=(_(f"The books is borrowed by {self.name} on {date.today()}")))
+        if self.status == 'reserved':
+            self.message_post(body=(_(f"The books is returned by {self.name}.")))
 
     @api.model_create_multi
     def create(self, vals_list):
@@ -67,7 +76,7 @@ class ProductTemplate(models.Model):
             'target': 'new'
         }
 
-    def write(self,vals):
+    def write(self, vals):
         """adding the sticky notifications"""
         for order in self:
             old_status = order.status
@@ -78,7 +87,7 @@ class ProductTemplate(models.Model):
             if old_status != new_status:
                 self.env['bus.bus']._sendone(self.env.user.partner_id, 'simple_notification', {
                     'type': 'success',
-                    'sticky':True,
+                    'sticky': True,
                     'message': _(f"Status changes from {old_status} to {new_status}."),
                 })
         return result

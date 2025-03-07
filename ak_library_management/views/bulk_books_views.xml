@@ -10,7 +10,7 @@
 
                     <header>
                         <button type="object"
-                                name="create_product"
+                                name="action_bulk_books"
                                 string="Create Product"/>
                         <button type="object" name="revert_changes"
                                 string="Revert Changes" invisible="not state"/>

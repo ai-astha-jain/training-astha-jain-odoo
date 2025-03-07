@@ -12,8 +12,8 @@ class BorrowTransaction(models.Model):
     _name = "borrow.transaction.history"
     _description = "Borrow Transaction History"
 
-    customer_id = fields.Many2one('res.partner', string='Customer')
-    books_ids = fields.Many2many('product.template', string='Books')
+    customer_id = fields.Many2one(comodel_name='res.partner', string='Customer', required=True)
+    books_ids = fields.Many2many(comodel_name='product.template', string='Books')
     borrow_start_date = fields.Date(string='Start Date',default=datetime.today())
     borrow_end_date = fields.Date(string='End Date',required=True)
     deposit_amount = fields.Float(string='Deposit Amount')
@@ -28,6 +28,7 @@ class BorrowTransaction(models.Model):
                 raise ValidationError("End date should be greater tha start date.")
 
     def _get_warning(self,name,message):
+        """action to open a wizard dynamcially for different conditions."""
         return {
             'type': 'ir.actions.act_window',
             'name': name,
