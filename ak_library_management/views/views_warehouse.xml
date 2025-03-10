@@ -1,0 +1,33 @@
+<!--<?xml version="1.0" encoding="utf-8"?>-->
+<!--<odoo>-->
+<!--    <data>-->
+<!--        <record id="views_warehouse_inherit_library_form" model="ir.ui.view">-->
+<!--            <field name="name">views.warehouse.inherit.library.form</field>-->
+<!--            <field name="model">stock.warehouse</field>-->
+<!--            <field name="inherit_id" ref="stock.view_warehouse"/>-->
+<!--            <field name="arch" type="xml">-->
+<!--                <xpath expr="//field[@name='code']" position="after">-->
+<!--                    <field name="library_assistant"/>-->
+<!--                    <field name="library_worker" widget="many2many_tags"/>-->
+<!--                </xpath>-->
+<!--            </field>-->
+<!--        </record>-->
+
+<!--&lt;!&ndash;        <record id="view_warehouse_tree_inherit_library" model="ir.ui.view">&ndash;&gt;-->
+<!--&lt;!&ndash;            <field name="name">stock.warehouse.list.inherit.library</field>&ndash;&gt;-->
+<!--&lt;!&ndash;            <field name="model">stock.warehouse</field>&ndash;&gt;-->
+<!--&lt;!&ndash;            <field name="inherit_id" ref="stock.view_warehouse_tree"/>&ndash;&gt;-->
+<!--&lt;!&ndash;            <field name="arch" type="xml">&ndash;&gt;-->
+<!--&lt;!&ndash;                <list string="Warehouse">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <field name="library_assistant"/>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <field name="library_worker" widget="many2many_tags"/>&ndash;&gt;-->
+<!--&lt;!&ndash;                </list>&ndash;&gt;-->
+<!--&lt;!&ndash;            </field>&ndash;&gt;-->
+<!--&lt;!&ndash;        </record>&ndash;&gt;-->
+
+<!--&lt;!&ndash;        <menuitem id="menu_action_warehouse"&ndash;&gt;-->
+<!--&lt;!&ndash;                  name="Warehouse"&ndash;&gt;-->
+<!--&lt;!&ndash;                  parent="menu_library"&ndash;&gt;-->
+<!--&lt;!&ndash;                  action="stock.action_warehouse_form"/>&ndash;&gt;-->
+<!--    </data>-->
+<!--</odoo>-->

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!--mail template for book reminder-->
+        <record id="email_template_borrow_book_reminder" model="mail.template">
+            <field name="name">Borrow Book: Reminder For returning the book.</field>
+            <field name="model_id" ref="ak_library_management.model_borrow_transaction_history"/>
+            <field name="subject">Reminder for returning the book.</field>
+            <field name="email_from">{{ user.email_formatted }}</field>
+            <field name="partner_to">{{ object.customer_id.id }}</field>
+            <field name="description">Sent automatically to participant who haven't returned the book.</field>
+            <field name="body_html" type="html">
+                <div>
+                    <strong>Reminder</strong><br/>
+                    You have not returned the borrowed book. Please return before the last end days. Do not forget to do it.
+                    <br/><br/>
+                    Thank you,
+                </div>
+            </field>
+        </record>
+    </data>
+</odoo>

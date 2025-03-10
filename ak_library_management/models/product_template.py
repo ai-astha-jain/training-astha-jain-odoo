@@ -91,3 +91,6 @@ class ProductTemplate(models.Model):
                     'message': _(f"Status changes from {old_status} to {new_status}."),
                 })
         return result
+
+    def mark_as_returned(self):
+        self.write({'status': 'reserved'})

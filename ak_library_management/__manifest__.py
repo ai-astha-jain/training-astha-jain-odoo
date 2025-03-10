@@ -2,7 +2,7 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 {
     'name': 'Library Management',
-    'version': '18.0.1.0.3',
+    'version': '18.0.1.1.3',
     'author':'Aastha Jain',
     'summary': 'A library management module is a software system designed to '
                'automate and streamline all aspects of a library',
@@ -29,6 +29,9 @@
         'views/borrow_transaction_views.xml',
         'wizards/check_low_stock_views.xml',
         'wizards/borrow_book_warnings_wizard.xml',
+        'data/ir_cron_action.xml',
+        'data/mail_template_data.xml',
+        # 'views/views_warehouse.xml',
     ],
     'installable': True,
     'application': True,

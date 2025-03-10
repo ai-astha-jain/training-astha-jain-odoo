@@ -1,14 +1,13 @@
 # -*- coding: utf-8 -*-
 
-from datetime import datetime
-from itertools import count
+from datetime import datetime,date,timedelta
 
 from odoo import models,fields,api
 from odoo.exceptions import ValidationError
 
 
 class BorrowTransaction(models.Model):
-    """this model is based on the history of the borrowed books."""
+    """Show the borrow transaction of books by the customer."""
     _name = "borrow.transaction.history"
     _description = "Borrow Transaction History"
 
@@ -21,14 +20,17 @@ class BorrowTransaction(models.Model):
 
     @api.constrains('borrow_start_date','borrow_end_date')
     def _check_date(self):
-        """give validation on end date that should be
-        greater than start date."""
+        """checks if end date is greater than start date
+        param: None
+        return: Exception"""
         for record in self:
             if record.borrow_start_date > record.borrow_end_date:
                 raise ValidationError("End date should be greater tha start date.")
 
     def _get_warning(self,name,message):
-        """action to open a wizard dynamcially for different conditions."""
+        """ dynamic wizard to show the warnings.
+        param: name, message
+        return: warning"""
         return {
             'type': 'ir.actions.act_window',
             'name': name,
@@ -39,7 +41,10 @@ class BorrowTransaction(models.Model):
         }
 
     def action_confirm(self):
-        """Method of button to raise warning according to the condition."""
+        """checks the condition on customers not trust worthy, low stock product
+        and according to len of books.
+        param:None
+        return:True"""
         if self.customer_id.not_trust_worthy:
             return self._get_warning('Not Trust Worthy',
                                      'Customer is not trustworthy. Are you sure you '
@@ -67,3 +72,33 @@ class BorrowTransaction(models.Model):
                 return self._get_warning('Borrow Books',
                                                  'Are you sure you want to allow borrowing'
                                                  ' more than 5 books for this customer?')
+
+    def _cron_book_reminder_send_email(self):
+        """Book reminder before 2 days of end date. Send email to
+        the customer.
+        param:None
+        return: True"""
+        all_record = self.search([])
+        for records in all_record:
+            check_status = [rec.status=='borrowed' for rec in records.books_ids]
+            send_email_date = records.borrow_end_date - timedelta(days=2)
+            if date.today() == send_email_date and any(check_status):
+                mail_template = self.env.ref('ak_library_management.email_template_borrow_book_reminder')
+                mail_template.send_mail(records.id, force_send=True)
+
+    def automated_action(self):
+        """raise the validation if borrowed books are overdue
+        and try to borrow more books.
+        param:None
+        return:ValidationError"""
+        search_record = self.search([('customer_id','=',self.customer_id.id)])
+        print("search_record:",search_record)
+        for record in search_record[:-1]:
+            print("record:",record)
+            for book in record.books_ids:
+                print("book: ",book)
+                if date.today() > record.borrow_end_date and book.status == "borrowed":
+                    print("Raise")
+                    raise ValidationError(f"{record.customer_id.name} with overdue books "
+                                          f"cannot borrow new ones until "
+                                          f"they return the overdue items.")

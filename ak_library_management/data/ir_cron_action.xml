@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!--book reminder schedule action-->
+        <record id="ir_cron_book_reminder" model="ir.cron">
+            <field name="name">Book Reminder</field>
+            <field name="model_id" ref="model_borrow_transaction_history"/>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="nextcall" eval="(DateTime.now() + relativedelta(days=1, hour=0, minute=0))"/>
+            <field name="code">model._cron_book_reminder_send_email()</field>
+            <field name="state">code</field>
+        </record>
+
+        <!--server action to change the status manually to returned by customer-->
+        <record model="ir.actions.server" id="action_borrow_books_status">
+            <field name="name">Change Status</field>
+            <field name="model_id" ref="model_borrow_transaction_history"/>
+            <field name="binding_model_id" ref="ak_library_management.model_borrow_transaction_history"/>
+            <field name="binding_view_types">list,form</field>
+            <field name="state">code</field>
+            <field name="code">
+                for rec in records:
+                    for book in rec.books_ids:
+                        env['bus.bus']._sendone(rec.customer_id, 'simple_notification', {
+                        'type': 'success',
+                        'message': (f"{rec.customer_id.name}, your book has been returned."),
+                        })
+                        book.mark_as_returned()
+            </field>
+        </record>
+
+        <!--action server for overdue borrow books-->
+        <record model="ir.actions.server" id="action_borrow_books_overdue">
+            <field name="name">Overdue Book Return</field>
+            <field name="model_id" ref="model_borrow_transaction_history"/>
+            <field name="binding_view_types">list,form</field>
+            <field name="state">code</field>
+            <field name="code">record.automated_action()</field>
+        </record>
+
+        <!--automated action for overdue borrow books-->
+        <record id="automation_action_borrow_book_overdue" model="base.automation">
+            <field name="name">ValidationError: Books not returned on given date.</field>
+            <field name="model_id" ref="model_borrow_transaction_history"/>
+            <field name="trigger">on_create_or_write</field>
+            <field name="action_server_ids" eval="[(4, ref('action_borrow_books_overdue'))]"/>
+        </record>
+    </data>
+</odoo>
