@@ -4,7 +4,7 @@ from odoo import models,fields
 
 
 class LibraryBook(models.Model):
-    """Here, the information about related to books."""
+    """This model has all the information about the books in the library."""
     _name = 'library.book'
     _description = 'Library Book'
 

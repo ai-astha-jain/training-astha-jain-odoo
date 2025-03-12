@@ -85,6 +85,7 @@ class BorrowTransaction(models.Model):
             if date.today() == send_email_date and any(check_status):
                 mail_template = self.env.ref('ak_library_management.email_template_borrow_book_reminder')
                 mail_template.send_mail(records.id, force_send=True)
+                print("Chal rha hoon mein")
 
     def automated_action(self):
         """raise the validation if borrowed books are overdue
@@ -92,13 +93,9 @@ class BorrowTransaction(models.Model):
         param:None
         return:ValidationError"""
         search_record = self.search([('customer_id','=',self.customer_id.id)])
-        print("search_record:",search_record)
         for record in search_record[:-1]:
-            print("record:",record)
             for book in record.books_ids:
-                print("book: ",book)
                 if date.today() > record.borrow_end_date and book.status == "borrowed":
-                    print("Raise")
                     raise ValidationError(f"{record.customer_id.name} with overdue books "
                                           f"cannot borrow new ones until "
                                           f"they return the overdue items.")

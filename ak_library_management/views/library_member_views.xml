@@ -22,6 +22,10 @@
             <field name="model">library.members</field>
             <field name="arch" type="xml">
                 <form>
+                    <header>
+                        <button type="object" name="send_renewal_mail"
+                            string="Send renewal Mail"/>
+                    </header>
                     <sheet>
                         <group>
                             <group>

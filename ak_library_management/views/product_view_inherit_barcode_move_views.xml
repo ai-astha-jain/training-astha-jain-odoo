@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
+        <!--inherit product template form view-->
         <record id="product_form_view_inherit_library_book" model="ir.ui.view">
             <field name="name">product.form.view.inherit.library.book</field>
             <field name="model">product.template</field>

@@ -2,17 +2,19 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 {
     'name': 'Library Management',
-    'version': '18.0.1.1.3',
+    'version': '18.0.1.1.4',
     'author':'Aastha Jain',
     'summary': 'A library management module is a software system designed to '
                'automate and streamline all aspects of a library',
     'sequence': 0,
     'category': 'Management/Management',
     'website': 'https://www.aktivsoftware.com',
-    'depends': ['base','product','sale',],
+    'depends': ['base','base_automation','product','sale','stock'],
     'data': [
         'security/ir.model.access.csv',
         'security/security.xml',
+        'data/ir_cron_action.xml',
+        'data/mail_template_data.xml',
         'views/library_book_views.xml',
         'views/library_template_views.xml',
         'views/book_tag_views.xml',
@@ -29,9 +31,7 @@
         'views/borrow_transaction_views.xml',
         'wizards/check_low_stock_views.xml',
         'wizards/borrow_book_warnings_wizard.xml',
-        'data/ir_cron_action.xml',
-        'data/mail_template_data.xml',
-        # 'views/views_warehouse.xml',
+        'views/stock_warehouse_views.xml',
     ],
     'installable': True,
     'application': True,

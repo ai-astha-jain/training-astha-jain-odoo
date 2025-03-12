@@ -27,11 +27,15 @@ class ProductTemplate(models.Model):
     reference = fields.Char(string='Reference', default=lambda s: s.env._('New'), copy=False)
 
     def mark_as_available(self):
-        """function for button: it will change the status to available"""
+        """change the status to available.
+        param: None
+        return: True"""
         self.status = 'available'
 
     def mark_as_borrowed(self):
-        """function for button to borrow a book"""
+        """change the status to borrowed and log the activity to show book due date.
+        param: None
+        return: True"""
         self.status = 'borrowed'
         activity_message = _("The book due date in 10 days")
         self.activity_schedule(
@@ -43,8 +47,9 @@ class ProductTemplate(models.Model):
 
     @api.constrains('status')
     def log_message(self):
-        """function to log the note in the chatter to update the partner
-        status of the product."""
+        """log the note in the chatter when customer will borrow the book.
+        param: None
+        return: True"""
         if self.status == 'borrowed':
             self.message_post(body=(_(f"The books is borrowed by {self.name} on {date.today()}")))
         if self.status == 'reserved':
@@ -52,7 +57,9 @@ class ProductTemplate(models.Model):
 
     @api.model_create_multi
     def create(self, vals_list):
-        """generating the sequence for the product"""
+        """generate the sequence for the product.
+        param: vals_list.
+        return: True"""
         for vals in vals_list:
             if not vals.get('reference') or vals['reference'] == _('New'):
                 vals['reference'] = (self.env['ir.sequence']
@@ -68,6 +75,9 @@ class ProductTemplate(models.Model):
          constraint properly."""
         # if self.name and self.status == 'unavailable':
         #     raise ValidationError(_("You can not borrow the book as this book is unavailable."))
+        # if self.env.user.library_admin:
+        #     raise ValidationError(_('You do not have rights to borrow the books.'))
+
         return {
             'type': 'ir.actions.act_window',
             'name': 'Borrow Book',
@@ -77,7 +87,9 @@ class ProductTemplate(models.Model):
         }
 
     def write(self, vals):
-        """adding the sticky notifications"""
+        """send the notification when the status will get changed of the product.
+        param: vals
+        return: True"""
         for order in self:
             old_status = order.status
         result = super().write(vals)
@@ -93,4 +105,7 @@ class ProductTemplate(models.Model):
         return result
 
     def mark_as_returned(self):
+        """change the status to reserved.
+        param: None
+        return: True"""
         self.write({'status': 'reserved'})

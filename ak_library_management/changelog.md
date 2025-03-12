@@ -26,3 +26,10 @@ Changelog
 - Added comprehensive docstring to all the models and functions.
 - Improved the code quality by adding docstring.
 - Optimized code structure for better maintainability.
+
+[18.0.1.1.4] - 11-03-2025 | ADD Library member and mail template views
+
+- Added functionality to send email for renewal of membership for the members.
+- Added mail.template in mail template data file.
+- Improved the code quality by adding docstring.
+- Optimized code structure for better maintainability.

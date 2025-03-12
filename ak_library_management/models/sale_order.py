@@ -50,7 +50,9 @@ class SaleOrder(models.Model):
             self.need_confirm = False
 
     def action_need_reject(self):
-        """ Cancel SO after showing the cancel wizard when needed."""
+        """ Cancel the sale order.
+        param:None
+        return: True"""
         if self.env.user.is_manager:
             self.is_approve = True
             self.need_confirm = False

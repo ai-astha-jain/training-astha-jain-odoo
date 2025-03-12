@@ -16,7 +16,9 @@ class UploadBulkBooks(models.TransientModel):
     state = fields.Boolean(string="state")
 
     def action_bulk_books(self):
-        """creating a new product(books) and method for create button"""
+        """create a new books record as a product at the same time.
+        param: None
+        return: True"""
         books = self.book_name.split(",")
         vals_list = []
         for book in books:
@@ -34,7 +36,9 @@ class UploadBulkBooks(models.TransientModel):
         self.state = True
 
     def revert_changes(self):
-        """to unlink all the products(books)"""
+        """delete all the books now as product.
+        param: None
+        return: True"""
         books = self.book_name.split(",")
         for book in books:
             exist_book = (self.env['product.template']
@@ -44,7 +48,9 @@ class UploadBulkBooks(models.TransientModel):
 
     @api.depends('state', 'product_count')
     def _count_product_books(self):
-        """method to count borrowed books"""
+        """count the number of borrowed book.
+        param: None
+        return: integer"""
         books = self.book_name.split(",")
         if self.state:
             self.product_count = len(books)
@@ -52,7 +58,10 @@ class UploadBulkBooks(models.TransientModel):
             self.product_count = 0
 
     def action_product_count(self):
-        """method for smart button."""
+        """opens the form if only 1 book will be borrowed
+        else open the list.
+        param: None
+        return: True"""
         if self.product_count == 1:
             search_product = (self.env['product.template']
                               .search(domain=[('name', '=', self.book_name)]))

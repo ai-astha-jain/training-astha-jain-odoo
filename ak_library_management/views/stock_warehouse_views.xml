@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!--inherit form view of stock warehouse-->
+        <record id="view_form_warehouse_inherit_library" model="ir.ui.view">
+            <field name="name">view.form.warehouse.inherit.library</field>
+            <field name="model">stock.warehouse</field>
+            <field name="inherit_id" ref="stock.view_warehouse"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='code']" position="after">
+                    <field name="library_assistant"/>
+                    <field name="worker" widget="many2many_tags"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!--inherit list view of stock warehouse -->
+        <record id="view_list_warehouse_inherit_library" model="ir.ui.view">
+            <field name="name">view.list.warehouse.inherit.library</field>
+            <field name="model">stock.warehouse</field>
+            <field name="inherit_id" ref="stock.view_warehouse_tree"/>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="library_assistant"/>
+                    <field name="worker"/>
+                </list>
+            </field>
+        </record>
+
+        <!--menuitem of warehouse in library module-->
+        <menuitem id="menu_warehouse_inherit_library"
+                  name="Warehouses"
+                  parent="menu_library"
+                  action="stock.action_warehouse_form"/>
+    </data>
+</odoo>

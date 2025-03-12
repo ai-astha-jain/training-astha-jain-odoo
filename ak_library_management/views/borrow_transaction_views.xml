@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
+        <!--list of borrow transaction-->
         <record id="borrow_transaction_list" model="ir.ui.view">
             <field name="name">borrow.transaction.list</field>
             <field name="model">borrow.transaction.history</field>
@@ -15,6 +16,7 @@
             </field>
         </record>
 
+        <!--form view of borrow transaction-->
         <record id="borrow_transaction_form" model="ir.ui.view">
             <field name="name">borrow.transaction.form</field>
             <field name="model">borrow.transaction.history</field>
@@ -41,6 +43,7 @@
             </field>
         </record>
 
+        <!--search view of borrow transaction-->
         <record id="borrow_transaction_search" model="ir.ui.view">
             <field name="name">borrow.transaction.search</field>
             <field name="model">borrow.transaction.history</field>
@@ -55,6 +58,7 @@
             </field>
         </record>
 
+        <!--action of borrow transactions-->
         <record id="action_borrow_transaction" model="ir.actions.act_window">
             <field name="name">Borrow Transaction History</field>
             <field name="res_model">borrow.transaction.history</field>
@@ -62,6 +66,7 @@
             <field name="view_id" ref="borrow_transaction_list"/>
         </record>
 
+        <!--menuitem of borrow transaction-->
         <menuitem id="menu_borrow_transaction_history"
                   name="History" parent="menu_library" />
         <menuitem id="sub_menu_borrow_transaction_history"
