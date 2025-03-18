@@ -98,15 +98,23 @@ class BorrowTransaction(models.Model):
                 mail_template = self.env.ref('ak_library_management.return_borrow_book_reminder')
                 mail_template.send_mail(records.id, force_send=True)
 
+    def change_status_book(self):
+        for rec in self.search([('books_ids.status','=','borrowed')]):
+            for book in rec.books_ids:
+                self.env['bus.bus']._sendone(self.customer_id, 'simple_notification', {
+                    'type': 'success',
+                    'message': (f"{self.customer_id.name}, your book has been returned."),
+                })
+                book.mark_as_returned()
+
     def overdue_books(self):
         """raise the validation if borrowed books are overdue
         and try to borrow more books.
         param:None
         return:ValidationError"""
-        search_record = self.search([('customer_id','=',self.customer_id.id)])
-        for record in search_record[:-1]:
-            for book in record.books_ids:
-                if date.today() > record.borrow_end_date and book.status == "borrowed":
-                    raise ValidationError(f"{record.customer_id.name} with overdue books "
-                                          f"cannot borrow new ones until "
-                                          f"they return the overdue items.")
+        search_record = self.search([('customer_id','=',self.customer_id.id)], order='id DESC',offset=1)
+        for record in search_record.filtered(lambda check_date : date.today() > check_date.borrow_end_date):
+            for book in record.books_ids.filtered(lambda check_status : check_status.status == "borrowed"):
+                raise ValidationError(f"{record.customer_id.name} with overdue books "
+                                      f"cannot borrow new ones until "
+                                      f"they return the overdue items.")

@@ -26,15 +26,7 @@
             <field name="binding_model_id" ref="ak_library_management.model_borrow_transaction_history"/>
             <field name="binding_view_types">list,form</field>
             <field name="state">code</field>
-            <field name="code">
-                for rec in records:
-                    for book in rec.books_ids:
-                        env['bus.bus']._sendone(rec.customer_id, 'simple_notification', {
-                        'type': 'success',
-                        'message': (f"{rec.customer_id.name}, your book has been returned."),
-                        })
-                        book.mark_as_returned()
-            </field>
+            <field name="code">model.change_status_book()</field>
         </record>
 
         <!--action server for overdue borrow books-->
