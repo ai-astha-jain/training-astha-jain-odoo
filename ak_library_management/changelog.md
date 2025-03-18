@@ -39,3 +39,9 @@ Changelog
 - Made library report in library.library model.
 - Made xml files which has action of report and template view of report
 - Added comments to improve code quality
+
+[18.0.1.2.5] - 18-03-2025 | ADD functionality in borrow transactions history
+
+- Add functionality to send an email for not returning the book before borrow end date.
+- Improved the code quality by adding docstring.
+- Optimized code structure for better maintainability.

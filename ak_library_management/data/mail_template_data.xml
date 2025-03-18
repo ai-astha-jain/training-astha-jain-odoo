@@ -3,6 +3,30 @@
     <data noupdate="0">
         <!--mail template for book reminder-->
         <record id="email_template_borrow_book_reminder" model="mail.template">
+            <field name="name">Borrow Book: Reminder For returning the book before end date.</field>
+            <field name="model_id" ref="ak_library_management.model_borrow_transaction_history"/>
+            <field name="subject">Reminder for borrow book en date.</field>
+            <field name="email_from">{{ user.email_formatted }}</field>
+            <field name="partner_to">{{ object.customer_id.id }}</field>
+            <field name="description">Sent automatically to participant who haven't returned the book.</field>
+            <field name="body_html" type="html">
+                <div style="margin: 0px; padding: 0px;">
+                    <p style="margin: 0px; padding: 0px; font-size: 13px;">
+                        Dear <t t-out="object.customer_id.name or ''"></t>
+                        <br/><br/>
+                        The book name <span style="font-weight:bold;" t-out="[book.name for book in object.books_ids]"></span>
+                        has due date <t t-out="object.borrow_end_date"></t>.
+                        Please return the book before the end date
+                        <br/><br/>
+                        If you have any questions, please do not hesitate to contact us.
+                        <br/><br/>
+                    </p>
+                </div>
+            </field>
+        </record>
+
+        <!--borrow book return reminder-->
+        <record id="return_borrow_book_reminder" model="mail.template">
             <field name="name">Borrow Book: Reminder For returning the book.</field>
             <field name="model_id" ref="ak_library_management.model_borrow_transaction_history"/>
             <field name="subject">Reminder for returning the book.</field>
@@ -15,8 +39,8 @@
                         Dear <t t-out="object.customer_id.name or ''"></t>
                         <br/><br/>
                         The book name <span style="font-weight:bold;" t-out="[book.name for book in object.books_ids]"></span>
-                        has due date <t t-out="object.borrow_end_date"></t>.
-                        Please return the book before the end date
+                        you borrowed had due date <t t-out="object.borrow_end_date"></t>.
+                        You have not return the book on time. Please return the book as soon as possible.
                         <br/><br/>
                         If you have any questions, please do not hesitate to contact us.
                         <br/><br/>
