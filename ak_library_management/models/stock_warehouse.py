@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models,fields
+from odoo import models,fields,api,_
+from odoo.exceptions import ValidationError
 
 
 class Warehouse(models.Model):
@@ -10,10 +11,8 @@ class Warehouse(models.Model):
     library_assistant = fields.Many2one(comodel_name='hr.employee', string="Library Assistant")
     worker = fields.Many2many(comodel_name='hr.employee', string="Library Worker")
 
-    _sql_constraints = [
-        ('name_uniq', 'unique (library_assistant)', "Assistant name already exists!"),
-    ]
-
-    _sql_constraints = [
-        ('name_uniq', 'unique (worker)', "Worker name already exists!"),
-    ]
+    @api.constrains('library_assistant','worker')
+    def _unique_assistant(self):
+        for record in self.worker:
+            if record.name in self.library_assistant.name:
+                raise ValidationError(_('Assistant and worker can not be the same person.'))

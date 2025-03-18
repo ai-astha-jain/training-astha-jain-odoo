@@ -33,3 +33,9 @@ Changelog
 - Added mail.template in mail template data file.
 - Improved the code quality by adding docstring.
 - Optimized code structure for better maintainability.
+
+[18.0.1.2.4] - 18-03-2025 | ADD action report and action template views
+
+- Made library report in library.library model.
+- Made xml files which has action of report and template view of report
+- Added comments to improve code quality

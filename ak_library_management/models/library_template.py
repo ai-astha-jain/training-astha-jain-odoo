@@ -9,13 +9,14 @@ class Library(models.Model):
     _inherit = ['mail.thread', 'mail.activity.mixin']
     _description = 'Library'
 
-    name = fields.Char(string='Name', required=True)
+    librarian_name = fields.Char(string='Name', required=True)
     location = fields.Char(string='Location')
     capacity = fields.Integer(string='Capacity')
     notes = fields.Text(string='Notes')
     book_ids = fields.Many2many(comodel_name='product.template',
                                 string='Book Ids',
-                                domain="[('is_library_book','=',1)]")
+                                domain="[('is_library_book','=',1)]",
+                                tracking=True)
 
     count = fields.Integer(string='Count Borrowed Books',
                            compute="count_borrowed_book")
@@ -30,9 +31,8 @@ class Library(models.Model):
         """count all the books borrowed by the customer.
         param: None
         return : True"""
-        for rec in self:
-            borrowed_books = rec.filtered(lambda reg: reg.book_ids.status == 'borrowed')
-            self.count = len(borrowed_books)
+        borrowed_books = [rec for rec in self.book_ids if rec.status=='borrowed']
+        self.count = len(borrowed_books)
 
     def action_count_borrowed_books(self):
         """open the list of the borrowed books

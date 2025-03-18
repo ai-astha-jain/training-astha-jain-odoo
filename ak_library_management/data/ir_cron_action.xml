@@ -1,36 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data noupdate="0">
-        <record model="ir.module.category" id="module_library_management">
-            <field name="name">Library Management</field>
-            <field name="sequence">60</field>
-        </record>
-
-        <record id="group_library_worker" model="res.groups">
-            <field name="name">Library Worker</field>
-            <field name="category_id" ref="module_library_management"/>
-        </record>
-
-        <record id="group_library_assistant" model="res.groups">
-            <field name="name">Library Assistant</field>
-            <field name="category_id" ref="module_library_management"/>
-            <field name="implied_ids" eval="[(4, ref('group_library_worker'))]"/>
-        </record>
-
-        <record id="group_library_admin" model="res.groups">
-            <field name="name">Library Admin</field>
-            <field name="category_id" ref="module_library_management"/>
-            <field name="implied_ids" eval="[(4, ref('group_library_assistant'))]"/>
-        </record>
-
-        <!--book reminder schedule action-->
+        <!--book reminder of schedule action-->
         <record id="ir_cron_book_reminder" model="ir.cron">
             <field name="name">Book Reminder</field>
             <field name="model_id" ref="model_borrow_transaction_history"/>
             <field name="interval_number">1</field>
             <field name="interval_type">days</field>
-            <field name="nextcall" eval="(DateTime.now() + relativedelta(days=1, hour=0, minute=0))"/>
-            <field name="code">model._cron_book_reminder_send_email()</field>
+            <field name="code">model.cron_book_reminder_send_email()</field>
             <field name="state">code</field>
         </record>
 
@@ -58,7 +35,7 @@
             <field name="model_id" ref="model_borrow_transaction_history"/>
             <field name="binding_view_types">list,form</field>
             <field name="state">code</field>
-            <field name="code">record.automated_action()</field>
+            <field name="code">record.overdue_books()</field>
         </record>
 
         <!--automated action for overdue borrow books-->

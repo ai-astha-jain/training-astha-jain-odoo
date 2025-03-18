@@ -73,21 +73,19 @@ class BorrowTransaction(models.Model):
                                                  'Are you sure you want to allow borrowing'
                                                  ' more than 5 books for this customer?')
 
-    def _cron_book_reminder_send_email(self):
+    def cron_book_reminder_send_email(self):
         """Book reminder before 2 days of end date. Send email to
         the customer.
         param:None
         return: True"""
-        all_record = self.search([])
-        for records in all_record:
+        for records in self.search([]):
             check_status = [rec.status=='borrowed' for rec in records.books_ids]
             send_email_date = records.borrow_end_date - timedelta(days=2)
             if date.today() == send_email_date and any(check_status):
                 mail_template = self.env.ref('ak_library_management.email_template_borrow_book_reminder')
                 mail_template.send_mail(records.id, force_send=True)
-                print("Chal rha hoon mein")
 
-    def automated_action(self):
+    def overdue_books(self):
         """raise the validation if borrowed books are overdue
         and try to borrow more books.
         param:None

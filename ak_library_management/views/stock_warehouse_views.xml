@@ -26,11 +26,5 @@
                 </list>
             </field>
         </record>
-
-        <!--menuitem of warehouse in library module-->
-        <menuitem id="menu_warehouse_inherit_library"
-                  name="Warehouses"
-                  parent="menu_library"
-                  action="stock.action_warehouse_form"/>
     </data>
 </odoo>
