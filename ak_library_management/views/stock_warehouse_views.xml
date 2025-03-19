@@ -8,8 +8,10 @@
             <field name="inherit_id" ref="stock.view_warehouse"/>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='code']" position="after">
-                    <field name="library_assistant"/>
-                    <field name="worker" widget="many2many_tags"/>
+                    <field name="library_assistant" groups="ak_library_management.group_library_admin"/>
+                    <field name="worker"
+                           widget="many2many_tags"
+                           groups="ak_library_management.group_library_admin,ak_library_management.group_library_assistant"/>
                 </xpath>
             </field>
         </record>

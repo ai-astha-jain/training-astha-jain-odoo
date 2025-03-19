@@ -11,7 +11,8 @@
                     <app data-string="Library Management" string="Library Management" name="Library" groups="base.group_system">
                         <block title="Library Settings" name="Library">
                             <setting id="borrowing_limits">
-                                <field name="borrowing_limits"/>
+                                <field name="borrowing_limits"
+                                       groups="ak_library_management.group_library_assistant"/>
                             </setting>
                         </block>
                     </app>

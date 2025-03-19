@@ -9,7 +9,8 @@
             <field name="arch" type="xml">
                 <header>
                     <button type="object" name="action_borrow_books"
-                            string="Borrow Books"/>
+                            string="Borrow Books"
+                            groups="ak_library_management.group_library_admin"/>
                     <button type="object" name="mark_as_available"
                             string="Marked as Available" invisible="status != 'borrowed'"/>
                     <button type="object" name="mark_as_borrowed"
