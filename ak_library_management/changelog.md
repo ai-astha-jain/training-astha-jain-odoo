@@ -45,3 +45,8 @@ Changelog
 - Add functionality to send an email for not returning the book before borrow end date.
 - Improved the code quality by adding docstring.
 - Optimized code structure for better maintainability.
+
+[18.0.1.2.6] - 19-03-2025 | UPDATED in borrow transactions history
+
+- Updated the variable name.
+- Add _rec_name.

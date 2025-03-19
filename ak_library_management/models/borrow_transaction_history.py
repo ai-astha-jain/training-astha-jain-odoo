@@ -10,6 +10,7 @@ class BorrowTransaction(models.Model):
     """Show the borrow transaction of books by the customer."""
     _name = "borrow.transaction.history"
     _description = "Borrow Transaction History"
+    _rec_name = 'customer_id'
 
     customer_id = fields.Many2one(comodel_name='res.partner', string='Customer', required=True)
     books_ids = fields.Many2many(comodel_name='product.template', string='Books')
@@ -79,9 +80,9 @@ class BorrowTransaction(models.Model):
         param:None
         return: True"""
         send_email_date = date.today() + timedelta(days=2)
-        all_record = self.search([('books_ids.status', '=', 'borrowed'),
+        borrow_book_history = self.search([('books_ids.status', '=', 'borrowed'),
                                   ('borrow_end_date','=',send_email_date)])
-        for records in all_record:
+        for records in borrow_book_history:
             mail_template = self.env.ref('ak_library_management.email_template_borrow_book_reminder')
             mail_template.send_mail(records.id, force_send=True)
 
@@ -90,11 +91,11 @@ class BorrowTransaction(models.Model):
         the customer.
         param:None
         return: True"""
-        all_record = self.search([('books_ids.status', '=', 'borrowed'),
+        return_borrowed_history = self.search([('books_ids.status', '=', 'borrowed'),
                                   ('borrow_end_date', '<', date.today())])
-        for records in all_record:
+        for history in return_borrowed_history:
             mail_template = self.env.ref('ak_library_management.return_borrow_book_reminder')
-            mail_template.send_mail(records.id, force_send=True)
+            mail_template.send_mail(history.id, force_send=True)
 
     def change_status_book(self):
         for rec in self.search([('books_ids.status', '=', 'borrowed')]):
@@ -110,10 +111,10 @@ class BorrowTransaction(models.Model):
         and try to borrow more books.
         param:None
         return:ValidationError"""
-        search_record = self.search([('customer_id', '=', self.customer_id.id),
+        overdue_book_records = self.search([('customer_id', '=', self.customer_id.id),
                                      ('books_ids.status', '=', 'borrowed'),
                                      ('borrow_end_date', '<', date.today())])
-        for record in search_record:
-            raise ValidationError(f"{record.customer_id.name} with overdue books "
+        for history in overdue_book_records:
+            raise ValidationError(f"{history.customer_id.name} with overdue books "
                                   f"cannot borrow new ones until "
                                   f"they return the overdue items.")

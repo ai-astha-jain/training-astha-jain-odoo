@@ -10,12 +10,11 @@ class LibraryMembers(models.Model):
     _description = 'Library Members'
     _rec_name = 'lib_member_id'
 
-    lib_member_id = fields.Many2one(comodel_name='res.partner', string="Library Member Id")
-    name = fields.Char(string='Member Name', required=True)
-    email = fields.Char(string='Email ID')
+    lib_member_id = fields.Many2one(comodel_name='res.partner', required=True, string="Library Member Id")
+    email = fields.Char(string='Email ID',related="lib_member_id.email")
     phone = fields.Char(string='Contact Number')
     membership_date = fields.Date(string='Membership Start Date')
-    member_id = fields.Char(string='Member ID',copy=False)
+    member_id = fields.Char(string='Member ID',copy=False, default=lambda s: s.env._('New'))
 
     @api.model_create_multi
     def create(self, vals_list):

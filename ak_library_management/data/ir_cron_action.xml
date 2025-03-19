@@ -23,7 +23,7 @@
 
         <!--server action to change the status manually to returned by customer-->
         <record model="ir.actions.server" id="action_borrow_books_status">
-            <field name="name">Change Status</field>
+            <field name="name">Return Books</field>
             <field name="model_id" ref="model_borrow_transaction_history"/>
             <field name="binding_model_id" ref="ak_library_management.model_borrow_transaction_history"/>
             <field name="binding_view_types">list,form</field>
