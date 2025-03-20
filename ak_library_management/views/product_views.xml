@@ -20,7 +20,9 @@
                      <field name="status" widget="statusbar" statusbar_visible="available,borrowed,reserved,unavailable"/>
                 </xpath>
                 <xpath expr="//label[@for='name']" position="before">
-                    <field name="reference"/>
+                    <h1>
+                        <field name="reference" readonly="True"/>
+                    </h1>
                 </xpath>
                 <xpath expr="//field[@name='standard_price']" position="attributes">
                     <attribute name="readonly">sale_ok</attribute>

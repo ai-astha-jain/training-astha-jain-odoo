@@ -12,7 +12,7 @@
                         <block title="Library Settings" name="Library">
                             <setting id="borrowing_limits">
                                 <field name="borrowing_limits"
-                                       groups="ak_library_management.group_library_assistant"/>
+                                       groups="ak_library_management.group_library_admin,ak_library_management.group_library_worker"/>
                             </setting>
                         </block>
                     </app>

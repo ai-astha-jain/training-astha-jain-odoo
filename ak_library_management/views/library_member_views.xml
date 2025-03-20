@@ -8,7 +8,7 @@
             <field name="arch" type="xml">
                 <list string="List View">
                     <field name="member_id"/>
-                    <field name="lib_member_id"/>
+                    <field name="member_name"/>
                     <field name="email"/>
                     <field name="phone"/>
                     <field name="membership_date"/>
@@ -32,7 +32,7 @@
                                 <h1>
                                     <field name="member_id" readonly="True"/>
                                 </h1>
-                                <field name="lib_member_id"/>
+                                <field name="member_name"/>
                                 <field name="email"/>
                             </group>
                             <group>

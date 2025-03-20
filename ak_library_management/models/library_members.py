@@ -8,10 +8,10 @@ class LibraryMembers(models.Model):
     """This class is storing fields of library member for the record."""
     _name = 'library.members'
     _description = 'Library Members'
-    _rec_name = 'lib_member_id'
+    _rec_name = 'member_name'
 
-    lib_member_id = fields.Many2one(comodel_name='res.partner', required=True, string="Library Member Id")
-    email = fields.Char(string='Email ID',related="lib_member_id.email")
+    member_name = fields.Many2one(comodel_name='res.partner', required=True, string="Library Member Id")
+    email = fields.Char(string='Email ID',related="member_name.email")
     phone = fields.Char(string='Contact Number')
     membership_date = fields.Date(string='Membership Start Date')
     member_id = fields.Char(string='Member ID',copy=False, default=lambda s: s.env._('New'))

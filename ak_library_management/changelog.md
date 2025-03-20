@@ -50,3 +50,9 @@ Changelog
 
 - Updated the variable name.
 - Add _rec_name.
+
+[18.0.1.2.7] - 20-03-2025 | ADD action report and action template views
+
+- Made library report in library.members model.
+- Made  template view of report in templated report xml file.
+- Added comments to improve code quality.

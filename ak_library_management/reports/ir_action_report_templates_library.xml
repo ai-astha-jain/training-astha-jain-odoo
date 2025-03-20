@@ -11,7 +11,7 @@
                     <ul class="list-unstyled" name="company_address_list">
                         <li t-if="company.is_company_details_empty">
                             <span t-field="company.partner_id"
-                                  t-options='{"widget": "contact", "fields": ["address", "name"],
+                                  t-options='{"widget": "contact", "fields": ["address", "name","email","phone"],
                                   "no_marker": true}'/>
                         </li>
                     </ul>
@@ -29,14 +29,15 @@
         </xpath>
     </template>
 
-    <!--article-->
+    <!--custom article for library management-->
     <template id="report_library_management_document">
         <t t-call="web.external_layout">
             <div class="page">
                 <div class="oe_structure"/>
                 <t>
                     <h3 style="margin-top: 20px; margin-bottom: 20px">
-                        <span>Library#</span>
+                        <span t-out="doc.librarian_name"/>
+                        <span>#</span>
                         <span t-field="doc.id"/>
                     </h3>
                 </t>
@@ -112,11 +113,61 @@
         </t>
     </template>
 
-    <!--html container-->
+    <!--html container for library management-->
     <template id="report_library_management">
         <t t-call="web.html_container">
             <t t-foreach="docs" t-as="doc">
                 <t t-call="ak_library_management.report_library_management_document"/>
+            </t>
+        </t>
+    </template>
+
+    <!--custom article for library members-->
+    <template id="report_library_members_document">
+        <t t-call="web.external_layout">
+            <div class="page">
+                <div class="oe_structure"/>
+                <t>
+                    <h3 style="margin-top: 20px; margin-bottom: 20px">
+                        <span t-out="doc.member_id"/>
+                    </h3>
+                </t>
+                <div class="col">
+                    <div t-if="doc.member_name"
+                         class="col"
+                         name="member_name">
+                        <strong>Member Name: </strong>
+                        <span t-out="doc.member_name.name"/>
+                    </div>
+                    <div t-if="doc.email"
+                         class="col"
+                         name="email">
+                        <strong>Email: </strong>
+                        <span t-out="doc.email"/>
+                    </div>
+                    <div t-if="doc.phone"
+                         class="col"
+                         name="phone">
+                        <strong>Phone: </strong>
+                        <span t-out="doc.phone"/>
+                    </div>
+                    <div t-if="doc.membership_date"
+                         class="col"
+                         name="membership_date">
+                        <strong>Membership Date: </strong>
+                        <span t-out="doc.membership_date"/>
+                    </div>
+                </div>
+                <div class="oe_structure"/>
+            </div>
+        </t>
+    </template>
+
+    <!--html container for library members-->
+    <template id="report_library_members">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="ak_library_management.report_library_members_document"/>
             </t>
         </t>
     </template>
