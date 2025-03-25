@@ -12,6 +12,7 @@
                     <field name="borrow_start_date"/>
                     <field name="borrow_end_date"/>
                     <field name="deposit_amount"/>
+                    <field name="check_borrow_limit"/>
                 </list>
             </field>
         </record>
@@ -27,6 +28,7 @@
                             <group>
                                 <field name="customer_id"/>
                                 <field name="books_ids" widget="many2many_tags"/>
+                                <field name="check_borrow_limit"/>
                             </group>
                             <group>
                                 <field name="borrow_start_date"/>

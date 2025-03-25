@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--inherit external layout standard template to add customize header and footer-->
+    <template id="custom_invoice_external_layout_standard" inherit_id="web.external_layout_standard">
+        <xpath expr="//div[@class = 'row']" position="attributes">
+            <attribute name="t-if">not o</attribute>
+        </xpath>
+
+        <xpath expr="//div[@class = 'row']" position="after">
+            <div class="row">
+                <div class="col-3 px-2">
+                    <span>Invoice Reference:</span>
+                    <br/>
+                    <span>Invoice Date:</span>
+                    <br/>
+                    <span>Reference Period:</span>
+                    <br/>
+                    <span>Payment Terms:</span>
+                    <br/>
+                </div>
+                <div class="col-3 px-0">
+                    <span t-if="o.payment_reference"
+                          class="col"
+                          name="payment_reference">
+                        <span t-out="o.payment_reference"/>
+                    </span>
+                    <br/>
+                    <span t-if="o.invoice_date"
+                          class="col"
+                          name="invoice_date">
+                        <span t-out="o.invoice_date"/>
+                    </span>
+                    <br/>
+                    <span t-if="o.invoice_date and o.invoice_date_due"
+                          class="col"
+                          name="reference_period">
+                        <span t-out="o.invoice_date"/> to <span t-out="o.invoice_date_due"/>
+                    </span>
+                    <br/>
+                    <span t-if="o.invoice_payment_term_id"
+                          class="col"
+                          name="invoice_payment_term_id">
+                        <span t-out="o.invoice_payment_term_id.name"/>
+                    </span>
+                    <br/>
+                </div>
+                <div class="col-6" style="padding-left: 125px;" name="company_address">
+                    <ul class="list-unstyled" name="company_address_list">
+                        <li t-if="o.partner_id">
+                            <span class="fw-bold" t-field="o.partner_id"
+                                  t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": true}'>
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </xpath>
+
+        <xpath expr="//div[contains(@t-attf-class, 'o_report_layout_standard')]" position="attributes">
+            <attribute name="t-attf-class" remove="o_table_standard" separator=" "/>
+        </xpath>
+
+        <xpath expr="//div[@class='o_footer_content d-flex border-top pt-2']" position="attributes">
+            <attribute name="t-if">not o</attribute>
+        </xpath>
+
+        <xpath expr="//div[@class = 'o_footer_content d-flex border-top pt-2']" position="after">
+            <p class="text-info fw-bold text-center">
+                Nolen, Winker and Partners - 33, rue de Gasperich, L- 5826 Hesperange - VAT LU31980427
+            </p>
+        </xpath>
+    </template>
+
+    <!--custom article for library management-->
+    <template id="custom_report_invoice_document" inherit_id="account.report_invoice_document">
+        <xpath expr="//div[@class='row']" position="attributes">
+            <attribute name="t-if">not o</attribute>
+        </xpath>
+
+        <xpath expr="//t[@t-set='layout_document_title']" position="attributes">
+            <attribute name="t-if">not o</attribute>
+        </xpath>
+
+        <xpath expr="//table[@name='invoice_line_table']" position="before">
+            <div class="fw-bold px-2" style="padding-bottom: 100px; padding-top: 100px;">
+                <span>INVOICE</span>
+            </div>
+        </xpath>
+
+        <xpath expr="//div[@id='informations']" position="attributes">
+            <attribute name="t-if">not o</attribute>
+        </xpath>
+
+        <xpath expr="//table[@name='invoice_line_table']//tr//th" position="after">
+            <style>
+                th{
+                font-weight: bold;
+                }
+            </style>
+        </xpath>
+
+        <xpath expr="//span[@t-field='line.price_unit']" position="after">
+            <span class="text-nowrap" t-out="o.currency_id.symbol"/>
+        </xpath>
+
+        <xpath expr="//th[@name='th_taxes']" position="attributes">
+            <attribute name="t-if">not o</attribute>
+        </xpath>
+
+        <xpath expr="//td[@name='td_taxes']" position="attributes">
+            <attribute name="t-if">not o</attribute>
+        </xpath>
+
+        <xpath expr="//th[@name='th_discount']" position="attributes">
+            <attribute name="t-if">not o</attribute>
+        </xpath>
+
+        <xpath expr="//td[@name='td_discount']" position="attributes">
+            <attribute name="t-if">not o</attribute>
+        </xpath>
+
+        <xpath expr="//div[@id='right-elements']" position="attributes">
+            <attribute name="t-attf-class">'#{'col-5' if report_type != 'html' else 'col-12'} col-12 fw-bold text-dark
+                d-block float-start'
+            </attribute>
+            <attribute name="style">margin-top:110px; margin-bottom:90px;</attribute>
+        </xpath>
+
+        <xpath expr="//div[@id='payment_term']" position="attributes">
+            <attribute name="style">margin-bottom:40px;</attribute>
+        </xpath>
+    </template>
+
+    <template id="custom_document_tax_totals_company_currency_inherit_template"
+              inherit_id="account.document_tax_totals_company_currency_template">
+        <xpath expr="//div[@class='mb-2 mt-3 border p-2 avoid-page-break-inside totals_taxes_company_currency']"
+               position="attributes">
+            <attribute name="t-if">not o</attribute>
+        </xpath>
+    </template>
+</odoo>

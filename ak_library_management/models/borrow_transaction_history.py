@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from datetime import datetime, date, timedelta
+from re import search
 
 from odoo import models, fields, api
 from odoo.exceptions import ValidationError
@@ -13,11 +14,35 @@ class BorrowTransaction(models.Model):
     _rec_name = 'customer_id'
 
     customer_id = fields.Many2one(comodel_name='res.partner', string='Customer', required=True)
-    books_ids = fields.Many2many(comodel_name='product.template', string='Books')
+    books_ids = fields.Many2many(comodel_name='product.template',
+                                 string='Books')
     borrow_start_date = fields.Date(string='Start Date', default=datetime.today())
     borrow_end_date = fields.Date(string='End Date', required=True)
     deposit_amount = fields.Float(string='Deposit Amount')
     is_member = fields.Boolean(related="customer_id.is_member")
+    is_active_transactions = fields.Boolean(string='Is Active Transactions',
+                                            store=True,
+                                            compute="_compute_active_transaction")
+    check_borrow_limit = fields.Boolean(string='Borrow Limit',
+                                        store=True,
+                                        compute="_compute_borrow_books_limit")
+
+    @api.depends('borrow_end_date')
+    def _compute_active_transaction(self):
+        for record in self:
+            record.is_active_transactions = record.borrow_end_date >= date.today()
+
+    @api.depends('books_ids')
+    def _compute_borrow_books_limit(self):
+        for record in self:
+            print(self)
+            record.check_borrow_limit = False
+            search_record = self.search([('customer_id', '=', self.customer_id.id)])
+            print(search_record)
+            no_of_books = [books for rec in search_record for books in rec.books_ids]
+            borrow_limit = int(record.env['ir.config_parameter'].get_param('ak_library_management.borrowing_limits'))
+            if len(no_of_books) > borrow_limit:
+                record.check_borrow_limit = True
 
     @api.constrains('borrow_start_date', 'borrow_end_date')
     def _check_date(self):

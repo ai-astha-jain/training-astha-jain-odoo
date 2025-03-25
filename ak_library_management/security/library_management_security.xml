@@ -32,7 +32,32 @@
             <field name="perm_read" eval="False"/>
             <field name="perm_write" eval="False"/>
             <field name="perm_create" eval="False"/>
-            <field name="perm_unlink" eval="True"/>
+        </record>
+
+        <record id="active_transactions_group_worker" model="ir.rule">
+            <field name="name">Can see only active transactions</field>
+            <field name="model_id" ref="model_borrow_transaction_history"/>
+            <field name="domain_force">[('is_active_transactions', '=', True)]</field>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_create" eval="False"/>
+            <field name="perm_write" eval="False"/>
+            <field name="perm_unlink" eval="False"/>
+            <field name="groups" eval="[
+                        Command.link(ref('ak_library_management.group_library_worker')),
+                    ]"/>
+        </record>
+
+        <record id="borrow_book_limit_access" model="ir.rule">
+            <field name="name">Can not borrow books more than 5.</field>
+            <field name="model_id" ref="model_borrow_transaction_history"/>
+            <field name="domain_force">[('check_borrow_limit', '=', False)]</field>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_write" eval="False"/>
+            <field name="perm_unlink" eval="False"/>
+            <field name="groups" eval="[
+                        Command.link(ref('ak_library_management.group_library_worker')),
+                    ]"/>
         </record>
     </data>
 </odoo>

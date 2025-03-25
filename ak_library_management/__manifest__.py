@@ -35,6 +35,7 @@
         'views/res_config_settings_views.xml',
         'reports/ir_action_report.xml',
         'reports/ir_action_report_templates_library.xml',
+        'reports/custom_report_invoicing.xml',
     ],
     'installable': True,
     'application': True,

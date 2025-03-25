@@ -8,14 +8,14 @@
         </xpath>
         <xpath expr="//img" position="after">
             <div class="col-6 d-flex flex-column align-items-end justify-content-end" name="company_address">
-                    <ul class="list-unstyled" name="company_address_list">
-                        <li t-if="company.is_company_details_empty">
-                            <span t-field="company.partner_id"
-                                  t-options='{"widget": "contact", "fields": ["address", "name","email","phone"],
-                                  "no_marker": true}'/>
-                        </li>
-                    </ul>
-                </div>
+                <ul class="list-unstyled" name="company_address_list">
+                    <li t-if="company.is_company_details_empty">
+                        <span t-field="company.partner_id"
+                              t-options='{"widget": "contact", "fields": ["address", "name","email","phone"],
+                              "no_marker": true}'/>
+                    </li>
+                </ul>
+            </div>
         </xpath>
         <!--footer-->
         <xpath expr="//div[@t-field='company.report_footer']" position="attributes">
