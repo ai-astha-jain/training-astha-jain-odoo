@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="website_contacts_page" name="Contacts">
+            <t t-call="website.layout">
+                <div class="contact_page">
+                    <div class="row">
+                        <div t-foreach="contacts" t-as="contact" class="col-md-4">
+                            <div class="card flex-row contacts_card"
+                                 style="margin:5px"
+                                 t-att-data-contacts-slug="contact.contacts_slug">
+                                <img class="card-img-left img-fluid rounded-start"
+                                     style="height: 120px; width:120px;"
+                                     loading="lazy"
+                                     t-attf-src="/web/image/res.partner/#{contact.id}/avatar_128"
+                                     alt="contact images"/>
+                                <div class="card-body">
+                                    <p class="card-title" t-esc="contact.name"/>
+                                    <p class="card-text" t-esc="contact.email" style="font-size:15px;"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </template>
+
+        <template id="fetch_contacts_data_page" name="Contacts Data">
+            <t t-call="website.layout">
+                <div class="card border border-muted rounded-0" style="margin:10px; border:1px solid ;">
+                    <div class="d-flex flex-row justify-content-between align-items-center"
+                         style="margin-right:25px;margin-top:25px;margin-left:25px;">
+                        <div style="font:32px black;" t-out="data.name"/>
+                        <img class="img-fluid float-md-end"
+                             style="height: 120px; width:120px;"
+                             loading="lazy"
+                             t-attf-src="/web/image/res.partner/#{data.id}/avatar_128"
+                             alt="record image"/>
+                    </div>
+                    <div class="card-body"
+                         style="margin-left:8px;">
+                        <div class="row" style="padding-bottom:50px">
+                            <div class="col-2">
+                                <div>Phone no :</div>
+                                <br/>
+                                <div>Email :</div>
+                                <br/>
+                                <div>Website :</div>
+                                <br/>
+                                <div>Tax Id :</div>
+                                <br/>
+                            </div>
+                            <div class="col-3 px-0">
+                                <div t-out="data.phone"/>
+                                <br/>
+                                <div t-out="data.email"/>
+                                <br/>
+                                <div t-out="data.website"/>
+                                <br/>
+                                <div t-out="data.vat"/>
+                                <br/>
+                            </div>
+                        </div>
+                        <a href="/contacts" class="btn btn-primary">Back</a>
+                    </div>
+                </div>
+            </t>
+        </template>
+    </data>
+</odoo>

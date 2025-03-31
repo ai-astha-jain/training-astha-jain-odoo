@@ -24,8 +24,4 @@
         <field name="binding_type">report</field>
     </record>
 
-    <!--inherit invoice report action-->
-    <record id="account.account_invoices_without_payment" model="ir.actions.report">
-            <field name="report_type">qweb-html</field>
-    </record>
 </odoo>

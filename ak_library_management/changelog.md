@@ -56,3 +56,14 @@ Changelog
 - Made library report in library.members model.
 - Made  template view of report in templated report xml file.
 - Added comments to improve code quality.
+
+[18.0.1.3.7] - 25-03-2025 | ADD report directory
+
+- Modified invoice report.
+- Added comments to improve code quality.
+
+[18.0.1.4.7] - 31-03-2025 | ADD controllers, static directories
+
+- Add functionality of slug.
+- Made HTTP controller.
+- Add new contacts page in website module.

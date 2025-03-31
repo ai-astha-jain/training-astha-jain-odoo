@@ -1,15 +1,13 @@
-# -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
 {
     'name': 'Library Management',
     'version': '18.0.1.2.7',
-    'author':'Aastha Jain',
+    'author': 'Aastha Jain',
     'summary': 'A library management module is a software system designed to '
                'automate and streamline all aspects of a library',
     'sequence': 0,
     'category': 'Management/Management',
     'website': 'https://www.aktivsoftware.com',
-    'depends': ['base','base_automation','product','sale','stock'],
+    'depends': ['base', 'base_automation', 'product', 'sale', 'stock', 'website'],
     'data': [
         'security/library_management_security.xml',
         'security/ir.model.access.csv',
@@ -33,11 +31,21 @@
         'views/borrow_transaction_views.xml',
         'views/stock_warehouse_views.xml',
         'views/res_config_settings_views.xml',
-        'reports/ir_action_report.xml',
-        'reports/ir_action_report_templates_library.xml',
-        'reports/custom_report_invoicing.xml',
+        'views/website_contacts_page.xml',
+        'views/website_contacts_menu.xml',
+        'report/ir_action_report.xml',
+        'report/ir_action_report_templates_library.xml',
+        'report/custom_report_invoicing.xml',
     ],
+    'assets': {
+        'web.assets_frontend': [
+            'ak_library_management/static/src/*.js',
+        ]
+    },
+
     'installable': True,
     'application': True,
     'license': 'LGPL-3',
 }
+# -*- coding: utf-8 -*-
+# Part of Odoo. See LICENSE file for full copyright and licensing details.
