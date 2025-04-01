@@ -1,0 +1,46 @@
+<!--<?xml version="1.0" encoding="utf-8"?>-->
+<!--<odoo>-->
+<!--    <data>-->
+<!--        <template id="customers_form_page" name="Customers">-->
+<!--            <t t-call="website.layout">-->
+<!--                <div class="customer_page">-->
+<!--                    <div class="container d-flex align-items-center justify-content-xl-center">-->
+<!--                        <div class="wrapper">-->
+<!--                            <div class="card mb-3" style="max-width: 540px;">-->
+<!--                                <div class="row g-0">-->
+<!--                                    <div class="col-md-4">-->
+<!--                                        <img src="https://images.app.goo.gl/o22EghKmLr12Gk5X7" class="img-fluid rounded-0" alt="image"/>-->
+<!--                                    </div>-->
+<!--                                    <div class="col-md-8">-->
+<!--                                        <div class="card-body">-->
+<!--                                            <label for="email">Email<span class="text-danger">*</span>:-->
+<!--                                            </label>-->
+<!--                                            <input type="text" style="border:0px;" placeholder="e.g. johndoe@example.com" id="email_input"/>-->
+<!--                                            <br/>-->
+<!--                                            <br/>-->
+<!--                                            <label for="display_name">Name<span class="text-danger">*</span> :-->
+<!--                                            </label>-->
+<!--                                            <input type="text" style="border:0px;" id="name_input"/>-->
+<!--                                            <br/>-->
+<!--                                            <br/>-->
+<!--                                            <label for="customer_website">Website<span class="text-danger">*</span> :-->
+<!--                                            </label>-->
+<!--                                            <input type="text" style="border:0px;" id="website_input"/>-->
+<!--                                            <br/>-->
+<!--                                            <br/>-->
+<!--                                            <label for="customer_phone">Phone<span class="text-danger">*</span> :-->
+<!--                                            </label>-->
+<!--                                            <input type="text" style="border:0px;" id="phone_input"/>-->
+<!--                                            <br/>-->
+<!--                                            <br/>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </t>-->
+<!--        </template>-->
+<!--    </data>-->
+<!--</odoo>-->
