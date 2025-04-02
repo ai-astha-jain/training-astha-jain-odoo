@@ -54,7 +54,7 @@ Changelog
 [18.0.1.2.7] - 20-03-2025 | ADD action report and action template views
 
 - Made library report in library.members model.
-- Made  template view of report in templated report xml file.
+- Made template view of report in templated report xml file.
 - Added comments to improve code quality.
 
 [18.0.1.3.7] - 25-03-2025 | ADD report directory
@@ -67,3 +67,8 @@ Changelog
 - Add functionality of slug.
 - Made HTTP controller.
 - Add new contacts page in website module.
+
+[18.0.1.4.7] - 01-04-2025 | ADD xml file in xml directory.
+
+- Modified odoo16 view of pos in odoo18
+- Added comments to improve code quality.
