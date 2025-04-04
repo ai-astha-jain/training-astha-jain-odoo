@@ -14,10 +14,11 @@
                     <button type="object" name="mark_as_available"
                             string="Marked as Available" invisible="status != 'borrowed'"/>
                     <button type="object" name="mark_as_borrowed"
-                            string="Marked as Borrowed" invisible="status != 'available'"  />
+                            string="Marked as Borrowed" invisible="status != 'available'"/>
                 </header>
                 <xpath expr="//header" position="inside">
-                     <field name="status" widget="statusbar" statusbar_visible="available,borrowed,reserved,unavailable"/>
+                    <field name="status" widget="statusbar"
+                           statusbar_visible="available,borrowed,reserved,unavailable"/>
                 </xpath>
                 <xpath expr="//label[@for='name']" position="before">
                     <h1>
@@ -31,7 +32,7 @@
                     <page name="book_details" string="Book Details">
                         <group>
                             <group>
-                                <field name="is_library_book" />
+                                <field name="is_library_book"/>
                                 <field name="author" required="sale_ok"/>
                                 <field name="publisher" required="sale_ok"/>
                                 <field name="edition" required="sale_ok"/>
@@ -44,6 +45,11 @@
                             </group>
                         </group>
                     </page>
+                </xpath>
+                <xpath expr="//page[@name='purchase']" position="inside">
+                    <group>
+                        <field name="vendors_on_variants"/>
+                    </group>
                 </xpath>
             </field>
         </record>

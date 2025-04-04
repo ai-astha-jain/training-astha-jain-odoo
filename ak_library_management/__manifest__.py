@@ -1,13 +1,16 @@
+# -*- coding: utf-8 -*-
+# Part of Odoo. See LICENSE file for full copyright and licensing details.
+
 {
     'name': 'Library Management',
-    'version': '18.0.1.2.7',
+    'version': '18.0.1.4.8',
     'author': 'Aastha Jain',
     'summary': 'A library management module is a software system designed to '
                'automate and streamline all aspects of a library',
     'sequence': 0,
     'category': 'Management/Management',
     'website': 'https://www.aktivsoftware.com',
-    'depends': ["sale_management", "hr", "stock", "base_automation", "website", "account","point_of_sale"],
+    'depends': ["sale_management", "hr", "stock", "base_automation", "website", "account", "point_of_sale"],
     'data': [
         'security/library_management_security.xml',
         'security/ir.model.access.csv',
@@ -32,15 +35,17 @@
         'views/stock_warehouse_views.xml',
         'views/res_config_settings_views.xml',
         'views/website_contacts_page.xml',
-        # 'views/customer_page.xml',
-        'views/website_contacts_menu.xml',
+        'views/customer_page.xml',
+        'views/website_menu.xml',
+        'views/inherit_website_sale_template.xml',
         'report/ir_action_report.xml',
         'report/ir_action_report_templates_library.xml',
         'report/custom_report_invoicing.xml',
     ],
     'assets': {
         'web.assets_frontend': [
-            'ak_library_management/static/src/js/*.js',
+            'ak_library_management/static/src/js/web_contact_controller.js',
+            'ak_library_management/static/src/js/customer_fetch.js',
         ],
         'point_of_sale._assets_pos': [
             'ak_library_management/static/src/xml/*.xml',
@@ -51,5 +56,3 @@
     'application': True,
     'license': 'LGPL-3',
 }
-# -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.

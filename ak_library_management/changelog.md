@@ -72,3 +72,9 @@ Changelog
 
 - Modified odoo16 view of pos in odoo18
 - Added comments to improve code quality.
+
+[18.0.1.4.8] - 04-04-2025 | ADD json controller,customer_fect.js and customer_page view.
+
+- Added view in website module to fetch the customer details by email.
+- Create a function in .js where it will fetch all the details by giving input in email.
+- Made json controller.

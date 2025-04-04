@@ -18,6 +18,7 @@
 
         <xpath expr="//div[contains(@class,'product-content')]" position="after">
              <span style="color:#714B67; font-weight:bold; padding:0 0.5rem 0.5rem; font-size:12px;">
+                 <t t-out="props.price"></t>
                  <t t-if="props.product" t-out="props.product.lst_price"/>
              </span>
          </xpath>

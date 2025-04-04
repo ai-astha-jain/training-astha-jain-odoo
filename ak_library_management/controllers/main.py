@@ -13,24 +13,24 @@ class Library(http.Controller):
         }
         return request.render('ak_library_management.website_contacts_page', values)
 
-    @http.route('/contacts/<slug>', type='http', auth='pubsluglic', website=True)
-    def fetch_contacts_data(self, slug):
-        data = request.env['res.partner'].search([('contacts_slug','=',slug)])
+    @http.route('/contacts/<slug>', type='http', auth='public', website=True)
+    def fetch_contacts_data(self, **args):
+        data = request.env['res.partner'].search([('contacts_slug','=',args['slug'])])
         values = {
             'data': data,
         }
         return request.render('ak_library_management.fetch_contacts_data_page', values)
 
-    # @http.route('/customers', type='http', auth='public', website=True)
-    # def fetch_customer_details(self, **kwargs):
-    #     return request.render('ak_library_management.customers_form_page')
-    #
-    # @http.route(['/customers/email'],type='json', auth='public', website=True)
-    # def customer_data(self,**kwargs):
-    #     customer = request.env['res.partner'].search([('email', '=', email)])
-    #     print(customer)
-    #     return {
-    #         'name': customer.name,
-    #         'website':customer.website,
-    #         'phone': customer.phone,
-    #     }
+    @http.route('/customers', type='http', auth='public', website=True, csrf=False)
+    def fetch_customer_details(self, **args):
+        return request.render('ak_library_management.customers_form_page')
+
+    @http.route(['/customers/email'],type='json', auth='public', website=True,csrf=False)
+    def customer_data(self,**args):
+        customer = request.env['res.partner'].search([('email', '=', args.get('email'))])
+        print(customer)
+        return {
+            'name': customer.name,
+            'website':customer.website,
+            'phone': customer.phone,
+        }

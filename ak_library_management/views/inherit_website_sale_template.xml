@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="inherit_product_website_sale" inherit_id="website_sale.product">
+        <xpath expr="//div[@id='add_to_cart_wrap']" position="inside">
+            <a role="button" class="btn btn-primary ms-2 flex-grow-1" href="/download_images" id="download">
+                Download Images
+            </a>
+        </xpath>
+    </template>
+</odoo>

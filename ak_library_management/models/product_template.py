@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 
 from datetime import date, timedelta
+from email.policy import default
+
 from odoo import models, fields, api, _
 from odoo.exceptions import ValidationError
 
@@ -25,6 +27,7 @@ class ProductTemplate(models.Model):
                                ('unavailable', 'Unavailable')],
                               string='Status', tracking=True)
     reference = fields.Char(string='Reference', default=lambda s: s.env._('New'), copy=False)
+    vendors_on_variants = fields.Boolean(string='Vendors on Variants', default=True)
 
     def mark_as_available(self):
         """change the status to available.
