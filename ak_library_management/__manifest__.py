@@ -10,7 +10,7 @@
     'sequence': 0,
     'category': 'Management/Management',
     'website': 'https://www.aktivsoftware.com',
-    'depends': ["sale_management", "hr", "stock", "base_automation", "website", "account", "point_of_sale"],
+    'depends': ["sale_management", "hr", "stock", "base_automation", "website", "point_of_sale"],
     'data': [
         'security/library_management_security.xml',
         'security/ir.model.access.csv',
@@ -37,7 +37,7 @@
         'views/website_contacts_page.xml',
         'views/customer_page.xml',
         'views/website_menu.xml',
-        'views/inherit_website_sale_template.xml',
+        # 'views/inherit_website_sale_template.xml',
         'report/ir_action_report.xml',
         'report/ir_action_report_templates_library.xml',
         'report/custom_report_invoicing.xml',

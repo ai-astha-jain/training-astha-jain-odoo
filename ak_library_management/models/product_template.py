@@ -27,7 +27,7 @@ class ProductTemplate(models.Model):
                                ('unavailable', 'Unavailable')],
                               string='Status', tracking=True)
     reference = fields.Char(string='Reference', default=lambda s: s.env._('New'), copy=False)
-    vendors_on_variants = fields.Boolean(string='Vendors on Variants', default=True)
+    vendors_on_variants = fields.Boolean(string='Vendors on Variants', default=False)
 
     def mark_as_available(self):
         """change the status to available.

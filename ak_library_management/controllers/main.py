@@ -28,7 +28,6 @@ class Library(http.Controller):
     @http.route(['/customers/email'],type='json', auth='public', website=True,csrf=False)
     def customer_data(self,**args):
         customer = request.env['res.partner'].search([('email', '=', args.get('email'))])
-        print(customer)
         return {
             'name': customer.name,
             'website':customer.website,

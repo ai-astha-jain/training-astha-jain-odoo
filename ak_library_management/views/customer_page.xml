@@ -38,7 +38,7 @@
                                                                id="name_input" placeholder="Enter your name"/>
                                                     </div>
                                                     <div class="col-12">
-                                                        <label for="website_input" class="form-label">Email
+                                                        <label for="website_input" class="form-label">Website
                                                             <span class="text-danger">*</span>
                                                         </label>
                                                         <input type="text" class="form-control" name="website" id="website_input"
