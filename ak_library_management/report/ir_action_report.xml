@@ -4,7 +4,7 @@
     <record id="action_report_library_management" model="ir.actions.report">
         <field name="name">Report</field>
         <field name="model">library.library</field>
-        <field name="report_type">qweb-html</field>
+        <field name="report_type">qweb-pdf</field>
         <field name="report_name">ak_library_management.report_library_management</field>
         <field name="report_file">ak_library_management.report_library_management</field>
         <field name="print_report_name">'Library - %s' % (object.librarian_name)</field>
