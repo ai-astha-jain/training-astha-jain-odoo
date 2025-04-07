@@ -69,10 +69,10 @@
                 <table style="margin-top: 20px" class="o_has_total_table table o_main_table table-borderless">
                     <thead style="display: table-row-group">
                         <tr>
-                            <th name="th_book" class="text-start text-nowrap">Books</th>
-                            <th name="th_price" class="text-start text-nowrap">Price</th>
-                            <th name="th_publish_date" class="text-start text-nowrap">Publish Date</th>
-                            <th name="th_Author" class="text-start text-nowrap">Author</th>
+                            <th style="font-weight:bold;color:#FEBE10;" name="th_book" class="text-start text-nowrap">Books</th>
+                            <th style="font-weight:bold;color:#FEBE10;" name="th_price" class="text-start text-nowrap">Price</th>
+                            <th style="font-weight:bold;color:#FEBE10;" name="th_publish_date" class="text-start text-nowrap">Publish Date</th>
+                            <th style="font-weight:bold;color:#FEBE10;" name="th_Author" class="text-start text-nowrap">Author</th>
                         </tr>
                     </thead>
 
@@ -81,9 +81,9 @@
                             <tr>
                                 <td name="td_name">
                                     <div t-if="book.barcode"><strong t-field="book.barcode"/></div>
-                                    <div t-field="book.name"/>
+                                    <div t-field="book.name"/><br/>
                                     <div>
-                                        <span>On Hand: </span>
+                                        <span class="fw-bold">On Hand: </span>
                                         <span t-out="book.qty_available"></span>
                                     </div>
                                 </td>

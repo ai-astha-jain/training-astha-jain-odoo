@@ -40,7 +40,7 @@
         # 'views/inherit_website_sale_template.xml',
         'report/ir_action_report.xml',
         'report/ir_action_report_templates_library.xml',
-        'report/custom_report_invoicing.xml',
+        # 'report/custom_report_invoicing.xml',
     ],
     'assets': {
         'web.assets_frontend': [
