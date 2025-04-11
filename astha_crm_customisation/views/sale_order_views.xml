@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!--inherit sale order form view-->
+        <record id="sale_order_form_inherit_astha_crm_custom" model="ir.ui.view">
+            <field name="name">sale.order.form.inherit.astha.crm.custom</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_id']" position="before">
+                    <field name="job_name" readonly="opportunity_id"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!--inherit sale order tree view-->
+        <record id="sale_order_tree_inherit_astha_crm_custom" model="ir.ui.view">
+            <field name="name">sale.order.list.inherit.astha.crm.custom</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.sale_order_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_id']" position="before">
+                    <field name="job_name"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!--inherit sale order search view-->
+        <record id="view_sales_order_filter_inherit_astha_crm_custom" model="ir.ui.view">
+            <field name="name">sale.order.list.select.inherit.astha.crm.custom</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_sales_order_filter"/>
+            <field name="arch" type="xml">
+                <field name="name" position="after">
+                    <field name="job_name"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>
