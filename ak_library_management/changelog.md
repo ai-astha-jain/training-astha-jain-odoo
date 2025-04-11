@@ -57,7 +57,7 @@ Changelog
 - Made template view of report in templated report xml file.
 - Added comments to improve code quality.
 
-[18.0.1.3.7] - 25-03-2025 | ADD report directory
+[18.0.1.3.7] - 25-03-2025 | ADD inherit report xml file
 
 - Modified invoice report.
 - Added comments to improve code quality.
@@ -78,3 +78,7 @@ Changelog
 - Added view in website module to fetch the customer details by email.
 - Create a function in .js where it will fetch all the details by giving input in email.
 - Made json controller.
+
+[18.0.1.4.9] - 11-04-2025 | UPDATE custom invoice report.
+
+- Updated the field visibility based on conditions.

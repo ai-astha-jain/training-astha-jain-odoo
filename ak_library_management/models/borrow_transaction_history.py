@@ -35,10 +35,8 @@ class BorrowTransaction(models.Model):
     @api.depends('books_ids')
     def _compute_borrow_books_limit(self):
         for record in self:
-            print(self)
             record.check_borrow_limit = False
             search_record = self.search([('customer_id', '=', self.customer_id.id)])
-            print(search_record)
             no_of_books = [books for rec in search_record for books in rec.books_ids]
             borrow_limit = int(record.env['ir.config_parameter'].get_param('ak_library_management.borrowing_limits'))
             if len(no_of_books) > borrow_limit:

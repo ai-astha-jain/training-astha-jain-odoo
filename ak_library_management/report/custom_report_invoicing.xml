@@ -9,13 +9,13 @@
         <xpath expr="//div[@class = 'row']" position="after">
             <div class="row">
                 <div class="col-3 px-2">
-                    <span>Invoice Reference:</span>
+                    <span t-if="o.payment_reference">Invoice Reference:</span>
                     <br/>
-                    <span>Invoice Date:</span>
+                    <span t-if="o.invoice_date">Invoice Date:</span>
                     <br/>
-                    <span>Reference Period:</span>
+                    <span t-if="o.invoice_date and o.invoice_date_due">Reference Period:</span>
                     <br/>
-                    <span>Payment Terms:</span>
+                    <span t-if="o.invoice_payment_term_id">Payment Terms:</span>
                     <br/>
                 </div>
                 <div class="col-3 px-0">

@@ -111,4 +111,5 @@ class ProductTemplate(models.Model):
         """change the status to reserved.
         param: None
         return: True"""
+        print(self.write({'status': 'reserved'}))
         self.write({'status': 'reserved'})
