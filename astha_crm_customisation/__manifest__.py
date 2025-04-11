@@ -10,13 +10,14 @@
     'sequence': 0,
     'category': 'Management/Management',
     'website': 'https://www.aktivsoftware.com',
-    'depends': ["sale_management", "crm", "stock", "mrp", "project","sale_project"],
+    'depends': ["sale_management", "crm", "stock", "mrp", "project", "sale_project"],
     'data': [
         'views/sale_order_views.xml',
         'views/mrp_production_views.xml',
         'views/stock_picking_views.xml',
         'views/project_project_views.xml',
         'views/account_move_views.xml',
+        'views/stock_move_views.xml',
     ],
 
     'installable': True,

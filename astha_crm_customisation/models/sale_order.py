@@ -8,12 +8,13 @@ class SaleOrder(models.Model):
     add more functionality."""
     _inherit = 'sale.order'
 
-    job_name = fields.Char(string="Job Name", readonly=False)
+    job_name = fields.Char(string="Job Name", compute="_compute_set_field", store=True)
 
-    @api.onchange('opportunity_id')
-    def set_field(self):
-        if self.opportunity_id:
-            self.job_name = self.opportunity_id.name
+    @api.depends('opportunity_id')
+    def _compute_set_field(self):
+        for rec in self:
+            if rec.opportunity_id:
+                rec.job_name = rec.opportunity_id.name
 
     def _prepare_invoice(self):
         res = super()._prepare_invoice()
