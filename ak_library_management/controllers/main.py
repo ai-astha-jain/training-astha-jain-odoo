@@ -7,7 +7,7 @@ from odoo.http import request
 class Library(http.Controller):
     @http.route('/contacts', type='http', auth='public', website=True)
     def library_details(self, **kwargs):
-        contact_details = request.env['res.partner'].search([])
+        contact_details = request.env['res.partner'].sudo().search([])
         values = {
             'contacts': contact_details,
         }
@@ -15,7 +15,7 @@ class Library(http.Controller):
 
     @http.route('/contacts/<slug>', type='http', auth='public', website=True)
     def fetch_contacts_data(self, **args):
-        data = request.env['res.partner'].search([('contacts_slug','=',args['slug'])])
+        data = request.env['res.partner'].sudo().search([('contacts_slug','=',args['slug'])])
         values = {
             'data': data,
         }
@@ -27,7 +27,7 @@ class Library(http.Controller):
 
     @http.route(['/customers/email'],type='json', auth='public', website=True,csrf=False)
     def customer_data(self,**args):
-        customer = request.env['res.partner'].search([('email', '=', args.get('email'))])
+        customer = request.env['res.partner'].sudo().search([('email', '=', args.get('email'))])
         return {
             'name': customer.name,
             'website':customer.website,

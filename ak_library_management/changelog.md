@@ -82,3 +82,7 @@ Changelog
 [18.0.1.4.9] - 11-04-2025 | UPDATE custom invoice report.
 
 - Updated the field visibility based on conditions.
+
+[18.0.1.4.10] - 16-04-2025 | UPDATE field names in stock.warehouse model
+
+- updated the field name according to the odoo base.

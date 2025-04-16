@@ -9,8 +9,7 @@
             <field name="arch" type="xml">
                 <header>
                     <button type="object" name="action_borrow_books"
-                            string="Borrow Books"
-                            groups="ak_library_management.group_library_admin"/>
+                            string="Borrow Books"/>
                     <button type="object" name="mark_as_available"
                             string="Marked as Available" invisible="status != 'borrowed'"/>
                     <button type="object" name="mark_as_borrowed"
@@ -40,7 +39,6 @@
                             <group>
                                 <field name="publish_date" required="sale_ok"/>
                                 <field name="pages"/>
-                                <field name="available"/>
                                 <field name="status"/>
                             </group>
                         </group>

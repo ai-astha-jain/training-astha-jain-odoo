@@ -69,7 +69,7 @@ class ProductTemplate(models.Model):
                                      .next_by_code('product.reference') or _('New'))
         return super().create(vals_list)
 
-    @api.constrains('status')
+    # @api.constrains('status')
     def action_borrow_books(self):
         """Here I have added a python constraint which is not valid as
         py constraints only works in create and write method but according to

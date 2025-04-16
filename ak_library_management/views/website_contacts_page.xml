@@ -41,23 +41,31 @@
                          style="margin-left:8px;">
                         <div class="row" style="padding-bottom:50px">
                             <div class="col-2">
-                                <div>Phone no :</div>
+                                <div t-if="data.phone">Phone no :</div>
                                 <br/>
-                                <div>Email :</div>
+                                <div t-if="data.email">Email :</div>
                                 <br/>
-                                <div>Website :</div>
+                                <div t-if="data.website">Website :</div>
                                 <br/>
-                                <div>Tax Id :</div>
+                                <div t-if="data.vat">Tax Id :</div>
                                 <br/>
                             </div>
                             <div class="col-3 px-0">
-                                <div t-out="data.phone"/>
+                                <div t-if="data.phone">
+                                    <t t-out="data.phone"/>
+                                </div>
                                 <br/>
-                                <div t-out="data.email"/>
+                                <div t-if="data.email">
+                                    <t t-out="data.email"/>
+                                </div>
                                 <br/>
-                                <div t-out="data.website"/>
+                                <div t-if="data.website">
+                                    <t t-out="data.website"/>
+                                </div>
                                 <br/>
-                                <div t-out="data.vat"/>
+                                <div t-if="data.vat">
+                                    <t t-out="data.vat"/>
+                                </div>
                                 <br/>
                             </div>
                         </div>

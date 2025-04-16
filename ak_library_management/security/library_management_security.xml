@@ -21,7 +21,7 @@
             <field name="category_id" ref="module_ak_library_management"/>
         </record>
 
-        <record id="borrow_book_users" model="ir.rule">
+        <record id="not_delete_active_borrow_book" model="ir.rule">
             <field name="name">Assistant and worker can not delete borrow books.</field>
             <field name="model_id" ref="model_product_template"/>
             <field name="domain_force">[('status', '!=', 'borrowed')]</field>
@@ -47,7 +47,7 @@
                     ]"/>
         </record>
 
-        <record id="borrow_book_limit_access" model="ir.rule">
+        <record id="limit_access_for_borrowing_books" model="ir.rule">
             <field name="name">Can not borrow books more than 5.</field>
             <field name="model_id" ref="model_borrow_transaction_history"/>
             <field name="domain_force">[('check_borrow_limit', '=', False)]</field>
