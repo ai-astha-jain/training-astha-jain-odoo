@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--report for product catalog -->
+    <record id="action_report_product_catalog" model="ir.actions.report">
+        <field name="name">Report</field>
+        <field name="model">product.catalog</field>
+        <field name="report_type">qweb-html</field>
+        <field name="report_name">ak_product_catalog_pdf.product_catalog_report</field>
+        <field name="report_file">ak_product_catalog_pdf.product_catalog_report</field>
+        <field name="print_report_name">'Product Catalog'</field>
+        <field name="binding_model_id" ref="model_product_catalog"/>
+        <field name="binding_type">report</field>
+    </record>
+</odoo>

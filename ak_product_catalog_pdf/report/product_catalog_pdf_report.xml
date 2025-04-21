@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!--inherit web external layout to remove header and footer-->
+    <template id="library_management_external_layout_standard" inherit_id="web.external_layout_standard">
+        <xpath expr="//div[contains(@t-attf-class, 'header')]" position="attributes">
+            <attribute name="t-if">not doc and not doc._name == 'product.catalog'</attribute>
+        </xpath>
+        <xpath expr="//div[contains(@t-attf-class, 'footer')]" position="attributes">
+            <attribute name="t-if">not doc and not doc._name == 'product.catalog'</attribute>
+        </xpath>
+    </template>
+
+    <!--two style layout for product catalog-->
+    <template id="product_catalog_pdf_report">
+        <t t-call="web.external_layout">
+            <div class="page">
+                <div class="oe_structure"/>
+                <div class="text-center" style="margin-top:5px;">
+                    <h5>
+                        Generated Product Catalog
+                    </h5>
+                </div>
+                <div t-if="doc.page_style=='style1'">
+                    <div class="col">
+                        <t t-set="counter" t-value="0"/>
+                        <div class="container" t-foreach="doc.product_ids" t-as="product">
+                            <t t-if="counter == doc.page_break">
+                                <p style="page-break-before:always;"></p>
+                                <t t-set="counter" t-value="0"/>
+                            </t>
+                            <t t-set="counter" t-value="counter + 1"/>
+                            <div class="d-flex align-items-center">
+                                <div t-if="product.image_1920">
+                                    <img t-att-src="image_data_uri(product.image_1920)"
+                                         class="img-fluid rounded-start"
+                                         style="height: 120px; width:120px;"
+                                         loading="lazy"
+                                         alt="contact images"/>
+                                </div>
+                                <div style="margin-left:35px;margin-right:35px;">
+                                    <div class="text-center" style="padding-left:5px;padding-right:5px;">
+                                        <t t-out="product.name"/>
+                                    </div>
+                                    <div class="text-center"
+                                         style="margin-bottom:2px;margin-top:2px;background-color:#dcdcdc;padding-left:5px;padding-right:5px;">
+                                        <t t-out="product.default_code"/>
+                                    </div>
+                                    <div class="text-center text-body-secondary"
+                                         style="margin-bottom:2px;margin-top:2px;background-color:#dcdcdc;padding-left:5px;padding-right:5px;">
+                                        <t t-out="product.lst_price"/>
+                                    </div>
+                                    <div style="padding-left:5px;padding-right:5px;">
+                                        <t t-out="product.description"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr style="height:1px;color:#483d8b;background-color:#483d8b;"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div t-if="doc.page_style == 'style2'">
+                    <div>
+                        <t t-foreach="doc.product_ids" t-as="o">
+                            <div class="text-center"
+                                 style="display:inline-block; width:350px; height:450px; border-style:dashed; border-color:purple; border-width: 2px; margin-top:5px; margin-bottom:5px;">
+                                <div>
+                                    <div class="fw-bold" style="font-size:16px;margin-bottom:10px;" t-out="o.name"/>
+                                </div>
+                                <div style="margin-top:1px;" t-if="o.image_1920">
+                                    <img t-att-src="image_data_uri(o.image_1920)" style="height:120px;width:120px;"/>
+                                </div>
+                                <div style="margin:10px;">
+                                    <div style="background-color:yellow;margin-bottom:10px;" t-out="o.default_code"/>
+                                    <div style="height:40px;background-color:yellow;margin-top:1px;"
+                                         t-out="o.lst_price"/>
+                                    <hr style="color:purple;background-color:purple;height:1px;"/>
+                                    <div class="text-start" t-out="o.description"/>
+                                </div>
+                            </div>
+                        </t>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <!--html container for custom product catalog-->
+    <template id="product_catalog_report">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="ak_product_catalog_pdf.product_catalog_pdf_report"/>
+            </t>
+        </t>
+    </template>
+</odoo>
