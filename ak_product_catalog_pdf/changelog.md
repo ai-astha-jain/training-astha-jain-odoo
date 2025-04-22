@@ -6,7 +6,7 @@ Changelog
 - Made a view for wizard.
 - Add a button to generate the report according to the style selected.
 
-[18.0.1.0.0] - 18-04-2025 | ADD model,views and security
+[18.0.1.0.1] - 18-04-2025 | ADD report action
 
 - Made a report view based on the style.
 - Added action report to generate the report.

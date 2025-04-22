@@ -47,23 +47,23 @@
                                     </div>
                                     <div class="text-center text-body-secondary"
                                          style="margin-bottom:2px;margin-top:2px;background-color:#dcdcdc;padding-left:5px;padding-right:5px;">
-                                        <t t-out="product.lst_price"/>
+                                        <t t-out="product.lst_price" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
                                     </div>
                                     <div style="padding-left:5px;padding-right:5px;">
                                         <t t-out="product.description"/>
                                     </div>
                                 </div>
                             </div>
-                            <hr style="height:1px;color:#483d8b;background-color:#483d8b;"/>
+                            <hr style="border:#483d8b solid;height:1px;color:#483d8b;"/>
                         </div>
                     </div>
                 </div>
 
                 <div t-if="doc.page_style == 'style2'">
-                    <div>
+                    <div >
                         <t t-foreach="doc.product_ids" t-as="o">
-                            <div class="text-center"
-                                 style="display:inline-block; width:350px; height:450px; border-style:dashed; border-color:purple; border-width: 2px; margin-top:5px; margin-bottom:5px;">
+                            <div class="container text-center"
+                                 style="margin-left:60px;margin-right:10px;display:inline-block; width:350px;height:500px; border-style:dashed; border-color:purple; border-width: 2px; margin-top:5px; margin-bottom:5px;">
                                 <div>
                                     <div class="fw-bold" style="font-size:16px;margin-bottom:10px;" t-out="o.name"/>
                                 </div>
@@ -72,10 +72,10 @@
                                 </div>
                                 <div style="margin:10px;">
                                     <div style="background-color:yellow;margin-bottom:10px;" t-out="o.default_code"/>
-                                    <div style="height:40px;background-color:yellow;margin-top:1px;"
-                                         t-out="o.lst_price"/>
+                                    <div class="text-center" style="font-size:18px;height:50px;background-color:yellow;margin-top:1px;"
+                                         t-out="o.lst_price" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
                                     <hr style="color:purple;background-color:purple;height:1px;"/>
-                                    <div class="text-start" t-out="o.description"/>
+                                    <span t-out="o.description"/>
                                 </div>
                             </div>
                         </t>
