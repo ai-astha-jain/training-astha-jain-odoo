@@ -8,10 +8,18 @@ class SaleOrderLine(models.Model):
     _inherit = 'sale.order.line'
 
     def _timesheet_create_project_prepare_values(self):
+        """Override: Timesheet Create Project Prepare Values
+        :param None
+        :rtype: return the key value pair in dictionary.
+        """
         res = super()._timesheet_create_project_prepare_values()
         res["job_name"] = self.order_id.job_name
 
     def _timesheet_create_project_prepare_values(self):
+        """Override: Timesheet Create Project Prepare Values
+        :param None.
+        :rtype: None
+        """
         res = super()._timesheet_create_project_prepare_values()
         res["job_name"] = self.order_id.job_name
         res['name'] = '%s - %s' % (self.order_id.name,self.order_id.job_name) if self.order_id.job_name else self.order_id.name
