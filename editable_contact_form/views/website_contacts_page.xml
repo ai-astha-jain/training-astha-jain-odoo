@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="website_contacts_page" name="Contacts">
+            <t t-call="website.layout">
+                <div class="contact_page">
+                    <div class="row">
+                        <div t-foreach="contacts" t-as="contact" class="col-md-4">
+                            <div class="card flex-row contacts_card"
+                                 style="margin:5px"
+                                 t-att-data-contacts-slug="contact.contacts_slug">
+                                <img class="card-img-left img-fluid rounded-start"
+                                     style="height: 120px; width:120px;"
+                                     loading="lazy"
+                                     t-attf-src="/web/image/res.partner/#{contact.id}/avatar_128"
+                                     alt="contact images"/>
+                                <div class="card-body">
+                                    <p class="card-title" t-esc="contact.name"/>
+                                    <p class="card-text" t-esc="contact.email" style="font-size:15px;"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </template>
+
+        <template id="fetch_contacts_data_page" name="Contacts Data">
+            <t t-call="website.layout">
+                <!-- Registration 12 - Bootstrap Brain Component -->
+                <div class="contact_detail_form container my-5">
+                    <form id="idForm" method="post" class="row g-3">
+                         <div class="col-md-8 d-flex align-items-center">
+                             <label for="inputName" class="form-label">Name</label>
+                            <input readonly="1" t-att-value="data.name" type="text" class="form-control" id="inputName"/>
+                         </div>
+                        <div class="col-md-4 text-center">
+                            <img class="img-fluid"
+                                 style="height: 120px; width:120px;"
+                                 loading="lazy"
+                                 t-attf-src="/web/image/res.partner/#{data.id}/avatar_128"
+                                 alt="record image"/>
+                        </div>
+                         <div class="col-md-4">
+                            <label for="inputEmail" class="form-label">Email</label>
+                            <input readonly="1" t-att-value="data.email" type="email" class="form-control" id="inputEmail"/>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="inputPhone" class="form-label">Phone</label>
+                            <input readonly="1" t-att-value="data.phone" type="phone" class="form-control" id="inputPhone"/>
+                        </div>
+                        <div class="col-12">
+                            <label for="inputAddress" class="form-label">Address</label>
+                            <input readonly="1" t-att-value="data.contact_address_inline" type="text"
+                                   class="form-control" id="inputAddress"
+                                   placeholder="Apartment, studio, or floor"/>
+                        </div>
+                        <div class="col-md-3">
+                            <label for="inputCountry" class="form-label">Country</label>
+                            <input readonly="1" t-att-value="data.country_id.name" type="text"
+                                   class="form-control" id="inputCountry"/>
+                        </div>
+                        <div class="col-md-3">
+                            <label for="inputState" class="form-label">State</label>
+                            <input readonly="1" t-att-value="data.state_id.name" type="text"
+                                   class="form-control" id="inputState"/>
+                        </div>
+                        <div class="col-md-3">
+                            <label for="inputCity" class="form-label">City</label>
+                            <input readonly="1" t-att-value="data.city" type="text" class="form-control" id="inputCity"/>
+                        </div>
+                        <div class="col-md-3">
+                            <label for="inputZip" class="form-label">Zip</label>
+                            <input readonly="1" t-att-value="data.zip" type="text" class="form-control" id="inputZip"/>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="inputWebsite" class="form-label">Website</label>
+                            <input readonly="1" t-att-value="data.website" type="text" class="form-control" id="inputWebsite"/>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="inputFunction" class="form-label">Job Postion</label>
+                            <input readonly="1" t-att-value="data.function" type="text" class="form-control" id="inputFunction"/>
+                        </div>
+                        <div class="col-md-4">
+                            <a href="/contacts" class="btn btn-primary">Back</a>
+                        </div>
+                        <div class="col-md-4">
+                            <a id="editBtn" class="btn btn-primary">Edit</a>
+                        </div>
+                        <div class="col-md-4">
+                            <a id="saveBtn" t-att-data-id="data.id" class="btn btn-primary">Save</a>
+                        </div>
+                    </form>
+                </div>
+            </t>
+        </template>
+    </data>
+</odoo>
